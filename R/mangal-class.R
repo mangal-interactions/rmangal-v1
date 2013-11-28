@@ -10,7 +10,9 @@
 mangal <- function(api = "http://localhost/8080/api", user = NULL, pwd = NULL)
 {
    if(is.null(api)) stop("The API URL cannot be empty") 
-   if(is.null(user) and !is.null(pwd)) warning("No username has been provided")
-   if(is.null(pwd) and !is.null(user)) warning("No password has been provided")
-   return(structure(api = api, user = user, pwd = pwd, class="mangal"))
+   if(is.null(user) & !is.null(pwd)) warning("No username has been provided")
+   if(is.null(pwd) & !is.null(user)) warning("No password has been provided")
+   connection_info <- list(url = api, usr = user, pwd = pwd)
+   class(connection_info) <- "mangal"
+   return(connection_info)
 }
