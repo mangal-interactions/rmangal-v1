@@ -1,0 +1,12 @@
+Package: rmangal
+Version: 0.0-1
+Date: 2013-11-28
+Title: R interface to the mangal database of ecological networks
+Authors@R: c(person("Tim", "Poisot", role = c("aut", "cre"),
+         email = "t.poisot@gmail.com"))
+Depends: R (>= 2.0.0), rjson
+Suggests: NetIndices, betalink
+Description: This packages offers R functions to interact with the mangal API, to retrieve and format data on species interaction networks.
+Licence: BSD_2_clause
+URL: https://github.com/tpoisot/rmangal
+BugReports https://github.com/tpoisot/rmangal/issues
