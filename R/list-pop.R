@@ -2,7 +2,9 @@
 #'
 #' Makes a list of all populations associated to a particular taxa.
 #'
-#' @param API An object of class \code{\link{mangal}}
+#' @export
+#'
+#' @param API An object of class \code{\link{mangalAPI}}
 #' @param taxa A \code{taxa} object in \code{list} format
 listPop <- function(API, taxa)
 {

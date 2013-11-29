@@ -1,13 +1,13 @@
 #' Handles connection to the database
 #'
-#' This function returns an object of class \code{mangal},
+#' This function returns an object of class \code{mangalAPI},
 #' that has the URL of the API and possibly the username /
 #' password informations.
 #'
 #' @param api URL of the API -- default to the UQAR API
 #' @param user Username on the API server
 #' @param pwd Password
-mangal <- function(api = "http://localhost:8000/api", user = NULL, pwd = NULL)
+mangalAPI <- function(api = "http://localhost:8000/api", user = NULL, pwd = NULL)
 {
    if(is.null(api)) stop("The API URL cannot be empty") 
    if(is.null(user) & !is.null(pwd)) warning("No username has been provided")

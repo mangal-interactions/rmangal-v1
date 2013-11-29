@@ -2,7 +2,9 @@
 #'
 #' Makes a list of all available taxa in the queried database.
 #'
-#' @param API An object of class \code{\link{mangal}}
+#'  @export
+#'
+#' @param API An object of class \code{\link{mangalAPI}}
 listTaxa <- function(API)
 {
   list_taxa <- httr::GET(paste(API$url,'taxa',sep='/'))

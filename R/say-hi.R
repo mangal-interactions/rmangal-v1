@@ -5,7 +5,9 @@
 #' API top level adress (giving, most notably, the API
 #' version number and codename).
 #' 
-#' @param API An object of class \code{\link{mangal}}
+#' @export
+#' 
+#' @param API An object of class \code{\link{mangalAPI}}
 sayHi <- function(API)
 {
    hello_message <- httr::GET(API$url)
