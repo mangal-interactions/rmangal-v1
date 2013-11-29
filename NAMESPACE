@@ -1,5 +1,7 @@
+export(getDataset)
 export(getPop)
 export(getTaxa)
+export(listDatasets)
 export(listPop)
 export(listTaxa)
 export(mangalAPI)

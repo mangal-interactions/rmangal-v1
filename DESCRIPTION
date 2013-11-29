@@ -21,3 +21,5 @@ Collate:
     'get-taxa.R'
     'get-pop.R'
     'mangal-api.R'
+    'get-dataset.R'
+    'list-dataset.R'
