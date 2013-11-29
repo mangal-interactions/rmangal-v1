@@ -1,0 +1,14 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{An R Markdown Vignette made with knitr}
+-->
+
+# rmangal - R access to hosted MANGAL API
+
+The `mangal` project is a [data specification][dataspec] and [API][api], desgined to facilitate the retrieval, archival, and re-use of data on ecological interactions.
+
+******
+
+# A brief overview
+
+[dataspec]: https://github.com/mangal-wg/mangal-schemes
