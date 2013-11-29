@@ -5,14 +5,14 @@
 #' password informations.
 #'
 #' @param api URL of the API -- default to the UQAR API
-#' @param user Username on the API server
+#' @param usr Username on the API server
 #' @param pwd Password
-mangalAPI <- function(api = "http://localhost:8000/api", user = NULL, pwd = NULL)
+mangalAPI <- function(api = "http://localhost:8000/api", usr = NULL, pwd = NULL)
 {
    if(is.null(api)) stop("The API URL cannot be empty") 
-   if(is.null(user) & !is.null(pwd)) warning("No username has been provided")
-   if(is.null(pwd) & !is.null(user)) warning("No password has been provided")
-   connection_info <- list(url = api, usr = user, pwd = pwd)
+   if(is.null(usr) & !is.null(pwd)) warning("No username has been provided")
+   if(is.null(pwd) & !is.null(usr)) warning("No password has been provided")
+   connection_info <- list(url = api, usr = usr, pwd = pwd)
    class(connection_info) <- "mangal"
    return(connection_info)
 }

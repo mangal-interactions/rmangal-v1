@@ -2,13 +2,13 @@
 \alias{mangalAPI}
 \title{Handles connection to the database}
 \usage{
-  mangalAPI(api = "http://localhost:8000/api", user = NULL,
+  mangalAPI(api = "http://localhost:8000/api", usr = NULL,
     pwd = NULL)
 }
 \arguments{
   \item{api}{URL of the API -- default to the UQAR API}
 
-  \item{user}{Username on the API server}
+  \item{usr}{Username on the API server}
 
   \item{pwd}{Password}
 }
