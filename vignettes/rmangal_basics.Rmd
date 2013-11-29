@@ -7,8 +7,30 @@
 
 The `mangal` project is a [data specification][dataspec] and [API][api], desgined to facilitate the retrieval, archival, and re-use of data on ecological interactions.
 
-******
+# An overview of the mangal format
 
-# A brief overview
+%%TODO general statement about the philosophy
+
+## Informations about interactions
+
+## Informations about network nodes
+
+# Getting to know the API
+
+The only information needed to start working is the URL of the database you want to interact with. By default, `rmangal` will connect you to the main database (at the Université du Québec à Rimouski).
+
+```{r firstStep}
+conn <- mangalAPI()
+```
+
+You can check that you have access to the API by saying Hi! to the DB:
+
+```{r sayHi}
+sayHi(conn)
+```
+
+## Get a list of taxa, and loop through them
+
+## Get the populations of a particular taxa
 
 [dataspec]: https://github.com/mangal-wg/mangal-schemes
