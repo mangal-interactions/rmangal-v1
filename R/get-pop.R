@@ -10,7 +10,7 @@
 getPop <- function(API, taxa, id)
 {
   if(class(API)!="mangal") stop("The API argument must be a valid mangalAPI object")
-  if(!is.character(id)) stop("The id argument must be a string")
+  checkArg(taxa)
   pop <- httr::GET(paste(API$url,'taxa',taxa$id,'pop',id,sep='/'))
   if(pop$status_code == 404) stop("This population cannot be found in the database, use listPop for a list of populations")
   if(pop$status_code == 200) return(content(pop))
