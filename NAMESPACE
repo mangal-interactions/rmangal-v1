@@ -1,6 +1,8 @@
+export(getPop)
 export(getTaxa)
 export(listPop)
 export(listTaxa)
+export(mangalAPI)
 export(sayHi)
 import(httr)
 import(rjson)

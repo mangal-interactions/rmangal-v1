@@ -16,7 +16,8 @@ BugReports https: //github.com/tpoisot/rmangal/issues
 Collate:
     'list-pop.R'
     'list-taxa.R'
-    'mangal-class.R'
     'mangal.R'
     'say-hi.R'
     'get-taxa.R'
+    'get-pop.R'
+    'mangal-api.R'

@@ -4,6 +4,8 @@
 #' that has the URL of the API and possibly the username /
 #' password informations.
 #'
+#' @export
+#'
 #' @param api URL of the API -- default to the UQAR API
 #' @param usr Username on the API server
 #' @param pwd Password
