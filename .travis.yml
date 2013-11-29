@@ -1,5 +1,3 @@
-# travis config, based on https://github.com/craigcitro/r-travis
-
 language: c
 script: ./travis-tool.sh run_tests
 before_script:
@@ -8,3 +6,4 @@ before_script:
   - ./travis-tool.sh bootstrap
   - ./travis-tool.sh install_deps
   - ./travis-tool.sh github_package testthat
+  - ./travis-tool.sh github_package assertthat
