@@ -19,3 +19,4 @@ Collate:
     'mangal-class.R'
     'mangal.R'
     'say-hi.R'
+    'get-taxa.R'
