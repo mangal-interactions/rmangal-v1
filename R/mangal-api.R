@@ -11,10 +11,19 @@
 #' @param pwd Password
 mangalAPI <- function(api = "http://localhost:8000/api", usr = NULL, pwd = NULL)
 {
+   auth <- NULL
    if(is.null(api)) stop("The API URL cannot be empty") 
    if(is.null(usr) & !is.null(pwd)) warning("No username has been provided")
    if(is.null(pwd) & !is.null(usr)) warning("No password has been provided")
-   connection_info <- list(url = api, usr = usr, pwd = pwd)
+   if(!(is.null(pwd) & is.null(pwd)))
+   {
+      auth <- authenticate(usr, pwd)
+   }
+   connection_info <- list(url = api)
+   if(!(is.null(auth)))
+   {
+      connection_info$auth <- auth
+   }
    class(connection_info) <- "mangal"
    return(connection_info)
 }
