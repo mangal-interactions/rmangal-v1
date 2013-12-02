@@ -12,5 +12,5 @@ getInfosFromPopstate <- function(API, id)
    population <- getPop(API, popstate$population)
    taxa <- getTaxa(API, population$taxa)
    taxa$population <- population
-   return(Population)
+   return(taxa)
 }

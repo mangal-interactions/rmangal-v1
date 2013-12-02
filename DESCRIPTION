@@ -32,3 +32,5 @@ Collate:
     'list-network.R'
     'list-interactions.R'
     'get-interaction.R'
+    'collate-graph.R'
+    'get-info-from-state.R'

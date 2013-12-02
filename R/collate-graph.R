@@ -8,18 +8,19 @@
 #' @param network A \code{list} object with the network information
 collateGraph <- function(API, dataset, network, ...)
 {
-   gr <- graph.empty()
+   edgelist <- NULL
    #NOTE the ... is for later use
-   a_ply(c(dataset, network), 1, checkArg)
+   l_ply(list(dataset, network), checkArg)
    # List of interactions
-   all_ints <- listInteraction(API, dataset, network)
+   all_ints <- listInteractions(API, dataset, network)
    for(each_int in all_ints)
    {
-      pfrom <- getInfosFromPopstate(each_int$pop_from)
-      pto <- getInfosFromPopstate(each_int$pop_to)
+      pfrom <- getInfosFromPopstate(API, each_int$pop_from)
+      pto <- getInfosFromPopstate(API, each_int$pop_to)
       pf_name <- paste(pfrom$name, pfrom$population$name)
       pt_name <- paste(pto$name, pto$population$name)
-      gr <- add.edges(gr, c(pf_name, pt_name))
+      edgelist <- rbind(edgelist, c(pf_name, pt_name))
    }
-   return(gr)
+   print(edgelist)
+   return(graph.data.frame(edgelist))
 }

@@ -11,8 +11,7 @@
 getInteraction <- function(API, dataset, network, id)
 {
    if(class(API)!="mangal") stop("The API argument must be a valid mangalAPI object")
-   checkArg(dataset)
-   a_ply(c(dataset, network), 1, checkArg)
+   l_ply(list(dataset, network), checkArg)
    if(!(network$id %in% dataset$networks)) stop("The network you want is not part of this dataset")
    if(!(id %in% network$interactions)) stop("The interaction you want do not belong to this network")
    list_int <- httr::GET(paste(API$url,'dataset', dataset$id, 'network', network$id, 'interaction', id, sep='/'))

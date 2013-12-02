@@ -7,10 +7,10 @@
 #' @param API An object of class \code{\link{mangalAPI}}
 #' @param dataset A \code{list} object representing a dataset
 #' @param network A \code{list} object representing a network
-listNetworks <- function(API, dataset, network)
+listInteractions <- function(API, dataset, network)
 {
    if(class(API)!="mangal") stop("The API argument must be a valid mangalAPI object")
-   a_ply(c(dataset, network), 1, checkArg)
+   l_ply(list(dataset, network), checkArg)
    if(!(network$id %in% dataset$networks)) stop("The network you look for do not belong to the dataset")
    if(length(network$interactions) == 0) stop("This network currently has no interactions")
    list_int <- httr::GET(paste(API$url,'dataset', dataset$id, 'network', network$id, 'interaction', sep='/'))

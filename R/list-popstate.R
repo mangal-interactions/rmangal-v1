@@ -10,7 +10,7 @@
 listPopstates <- function(API, taxa, pop)
 {
   if(class(API)!="mangal") stop("The API argument must be a valid mangalAPI object")
-  a_ply(c(taxa, pop), 1, checkArg)
+  l_ply(list(taxa, pop), checkArg)
   request <- paste(API$url, 'taxa', pop$taxa, 'pop', pop$id, 'state', sep='/')
   if(is.null(API$auth))
   {
