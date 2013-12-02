@@ -24,3 +24,6 @@ Collate:
     'mangal-api.R'
     'get-dataset.R'
     'list-dataset.R'
+    'check-args.R'
+    'get-popstate.R'
+    'list-popstate.R'

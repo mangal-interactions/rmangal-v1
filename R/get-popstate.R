@@ -12,7 +12,7 @@ getPopstate <- function(API, taxa, pop, id)
 {
   if(class(API)!="mangal") stop("The API argument must be a valid mangalAPI object")
   a_ply(c(taxa, pop), 1, checkArg)
-  request <- paste(API$url,'taxa',pop$taxa,'pop',pop$id$,'state',id,sep='/')
+  request <- paste(API$url, 'taxa', pop$taxa, 'pop', pop$id, 'state', id, sep='/')
   if(is.null(API$auth))
   {
     warning("You are not authenticated, only public datasets are listed")
