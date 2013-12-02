@@ -7,7 +7,7 @@
 #' @param API An object of class \code{\link{mangalAPI}}
 #' @param taxa A \code{taxa} object in \code{list} format
 #' @param pop A \code{population} object in \code{list} format
-listPopstate <- function(API, taxa, pop)
+listPopstates <- function(API, taxa, pop)
 {
   if(class(API)!="mangal") stop("The API argument must be a valid mangalAPI object")
   a_ply(c(taxa, pop), 1, checkArg)
