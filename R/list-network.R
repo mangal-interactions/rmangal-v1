@@ -10,7 +10,7 @@ listNetworks <- function(API, dataset)
 {
    if(class(API)!="mangal") stop("The API argument must be a valid mangalAPI object")
    checkArg(dataset)
-   if(len(dataset$networks) == 0) stop("This dataset currently has no networks")
+   if(length(dataset$networks) == 0) stop("This dataset currently has no networks")
    list_net <- httr::GET(paste(API$url,'dataset', dataset$id, 'network', sep='/'))
    if(list_net$status_code == 200) return(content(list_net))
 }
