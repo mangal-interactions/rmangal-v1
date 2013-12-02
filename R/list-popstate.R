@@ -10,8 +10,7 @@
 listPopstate <- function(API, taxa, pop)
 {
   if(class(API)!="mangal") stop("The API argument must be a valid mangalAPI object")
-  checkArg(taxa)
-  checkArg(pop)
+  a_ply(c(taxa, pop), 1, checkArg)
   if(is.null(API$auth))
   {
     warning("You are not authenticated, only public datasets are listed")
