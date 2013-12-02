@@ -29,3 +29,4 @@ Collate:
     'list-popstate.R'
     'get-network.R'
     'list-network.R'
+    'list-interactions.R'
