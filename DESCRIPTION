@@ -30,3 +30,4 @@ Collate:
     'get-network.R'
     'list-network.R'
     'list-interactions.R'
+    'get-interaction.R'
