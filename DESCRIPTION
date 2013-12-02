@@ -27,3 +27,4 @@ Collate:
     'check-args.R'
     'get-popstate.R'
     'list-popstate.R'
+    'get-network.R'
