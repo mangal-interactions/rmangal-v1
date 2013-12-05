@@ -5,7 +5,9 @@
 
 # rmangal - R access to hosted MANGAL API
 
-The `mangal` project is a [data specification][dataspec] and [API][api], desgined to facilitate the retrieval, archival, and re-use of data on ecological interactions.
+The `mangal` project is a [data specification][dataspec] and [API][api],
+desgined to facilitate the retrieval, archival, and re-use of data on
+ecological interactions.
 
 # An overview of the mangal format
 
@@ -30,6 +32,17 @@ sayHi(conn)
 ```
 
 ## Get a list of taxa, and loop through them
+
+It's possible to get a list of *all* taxa (future versions of the API will
+implement search methods). This can be done with:
+
+```{r listTaxa}
+all_taxa <- listTaxa(conn)
+length(all_taxa)
+```
+
+This object is an array of lists, and so the first taxa is accessed by
+`all_taxa[1]`.
 
 ## Get the populations of a particular taxa
 
