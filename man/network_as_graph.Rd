@@ -1,8 +1,8 @@
-\name{get_network}
-\alias{get_network}
+\name{network_as_graph}
+\alias{network_as_graph}
 \title{Get a network}
 \usage{
-  get_network(api, id, level = "taxa", ...)
+  network_as_graph(api, id, level = "taxa", ...)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}

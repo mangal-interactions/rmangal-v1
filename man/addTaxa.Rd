@@ -1,15 +1,18 @@
 \name{addTaxa}
 \alias{addTaxa}
-\title{Create a new taxa}
+\title{Add a new taxa object}
 \usage{
-  addTaxa(api, taxa)
+  addTaxa(api, data)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}
 
-  \item{taxa}{a list in the taxa format}
+  \item{data}{the taxa in list format}
 }
 \description{
-  Add a new taxa to the database
+  Post a new taxa to the database
+}
+\details{
+  Requires authentication
 }
 

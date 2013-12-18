@@ -16,7 +16,6 @@ License: BSD_2_clause
 URL: https://github.com/tpoisot/rmangal
 BugReports https: //github.com/tpoisot/rmangal/issues
 Collate:
-    'addTaxa.R'
     'mangalapi.R'
     'pagerResources.R'
     'mangalGet.R'
@@ -24,5 +23,6 @@ Collate:
     'network_methods.R'
     'dataset_methods.R'
     'taxa_methods.R'
-    'get_network.R'
     'interaction_methods.R'
+    'mangalPost.R'
+    'network_as_graph.R'
