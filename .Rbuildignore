@@ -1,3 +1,4 @@
 makefile
 .travis.yml
 rmangal.Rproj
+.git/*
