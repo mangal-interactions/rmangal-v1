@@ -3,7 +3,7 @@
 #' Add a new taxa to the database
 #'
 #' @param api a \code{\link{mangalapi}} object
-#' @param object a list in the taxa format
+#' @param taxa a list in the taxa format
 addTaxa <- function(api, taxa)
 {
    if(is.null(api$auth)) stop("You must be authenticated to post")
@@ -21,5 +21,4 @@ addTaxa <- function(api, taxa)
 	} else {
 		stop("This API do not implement the upload of taxa objects")
 	}
-   
 }

@@ -17,11 +17,10 @@ URL: https://github.com/tpoisot/rmangal
 BugReports https: //github.com/tpoisot/rmangal/issues
 Collate:
     'addTaxa.R'
-    'listDataset.R'
     'mangalapi.R'
-    'getDataset.R'
-    'listNetwork.R'
     'pagerResources.R'
     'mangalGet.R'
     'mangalList.R'
-    'getNetwork.R'
+    'network_methods.R'
+    'dataset_methods.R'
+    'taxa_methods.R'

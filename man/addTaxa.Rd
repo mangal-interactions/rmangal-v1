@@ -7,7 +7,7 @@
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}
 
-  \item{object}{a list in the taxa format}
+  \item{taxa}{a list in the taxa format}
 }
 \description{
   Add a new taxa to the database
