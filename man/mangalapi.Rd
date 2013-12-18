@@ -3,7 +3,7 @@
 \title{Initialise a mangal API object}
 \usage{
   mangalapi(url = "http://mangal.uqar.ca", v = "v1",
-    usr = NULL, pwd = NULL, ...)
+    usr = NULL, pwd = NULL)
 }
 \arguments{
   \item{url}{The URL to the server}

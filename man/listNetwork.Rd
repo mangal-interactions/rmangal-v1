@@ -2,7 +2,7 @@
 \alias{listNetwork}
 \title{List the networks currently in the DB}
 \usage{
-  listNetwork(api, ...)
+  listNetwork(api)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}

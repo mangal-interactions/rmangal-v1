@@ -6,9 +6,8 @@
 #' @param v The API version
 #' @param usr The username
 #' @param pwd The password
-mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd = NULL, ...)
+mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd = NULL)
 {
-	# ... will be updated for authentication in a future release
 	queryset <- httr::GET(paste(url, 'api', v, sep='/'))
 	if(http_status(queryset)$category == "success")
 	{
@@ -20,7 +19,8 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd =
 		list_of_methods <- content(queryset)
 		for(i in c(1:length(list_of_methods)))
 		{
-			methods[[names(list_of_methods)[i]]] <- paste(url,list_of_methods[[i]]$list_endpoint, sep='')
+			methods[[names(list_of_methods)[i]]]$url <- paste(url,list_of_methods[[i]]$list_endpoint, sep='')
+         methods[[names(list_of_methods)[i]]]$verbs <- content(httr::GET(paste(url, list_of_methods[[i]]$schema, sep='')))$allowed_list_http_methods
 		}
 		return(methods)
 	} else {

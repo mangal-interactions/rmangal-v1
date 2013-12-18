@@ -22,3 +22,5 @@ Collate:
     'getDataset.R'
     'listNetwork.R'
     'pagerResources.R'
+    'mangalGet.R'
+    'mangalList.R'
