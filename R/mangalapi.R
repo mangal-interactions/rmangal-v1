@@ -16,6 +16,7 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd =
       if(!(is.null(pwd))&is.null(usr)) warning("No username has been provided")
       if(!(is.null(usr) & is.null(pwd))) methods$auth <- authenticate(usr, pwd, 'basic')
 		methods$base <- url
+		methods$suffix <- paste('api/', v, '/', sep='')
 		list_of_methods <- content(queryset)
 		for(i in c(1:length(list_of_methods)))
 		{
