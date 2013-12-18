@@ -24,3 +24,5 @@ Collate:
     'network_methods.R'
     'dataset_methods.R'
     'taxa_methods.R'
+    'get_network.R'
+    'interaction_methods.R'
