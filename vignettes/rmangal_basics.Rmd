@@ -60,12 +60,12 @@ All functions to access information within `rmangal` follow the same naming conv
 In this section, we'll reconstruct a network and plot it using `igraph`.
 
 ```{r iPlot}
-plot(get_network(netdb, 1))
+plot(network_as_graph(netdb, 1))
 ```
 
 Done!
 
-The `get_network` function
+The `network_as_graph` function
 
 [dataspec]: https://github.com/mangal-wg/mangal-schemes
 [website]: http://mangal.uqar.ca/
