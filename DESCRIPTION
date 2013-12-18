@@ -21,3 +21,4 @@ Collate:
     'mangalapi.R'
     'getDataset.R'
     'listNetwork.R'
+    'pagerResources.R'
