@@ -19,3 +19,5 @@ Collate:
     'addTaxa.R'
     'listDataset.R'
     'mangalapi.R'
+    'getDataset.R'
+    'listNetwork.R'

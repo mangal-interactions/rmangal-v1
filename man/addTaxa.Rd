@@ -10,6 +10,6 @@
   \item{object}{a list in the taxa format}
 }
 \description{
-  Returns a list of datasets
+  Add a new taxa to the database
 }
 

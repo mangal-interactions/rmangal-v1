@@ -1,6 +1,6 @@
 #' Create a new taxa
 #'
-#' Returns a list of datasets
+#' Add a new taxa to the database
 #'
 #' @param api a \code{\link{mangalapi}} object
 #' @param object a list in the taxa format
