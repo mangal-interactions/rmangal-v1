@@ -16,6 +16,7 @@ mangalPost <- function(api, type, data)
 		new_entry <- content(queryset)
 		return(new_entry)
 	} else {
+		print(content(queryset))
 		stop(http_status(queryset)$message)
 	}
 }

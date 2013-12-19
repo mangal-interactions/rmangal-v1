@@ -26,5 +26,9 @@ addInteraction <- function(api, data)
 {
 	if(!(is.list(data$taxa_from))) data$taxa_from = getTaxa(api, data$taxa_from)
 	if(!(is.list(data$taxa_to))) data$taxa_to = getTaxa(api, data$taxa_to)
+	if(!is.null(data$population_from)) if(!(is.list(data$population_from))) data$population_from = getPopulation(api, data$population_from)
+	if(!is.null(data$population_to)) if(!(is.list(data$population_to))) data$population_to = getPopulation(api, data$population_to)
+	if(!is.null(data$item_from)) if(!(is.list(data$item_from))) data$item_from = getItem(api, data$item_from)
+	if(!is.null(data$item_to)) if(!(is.list(data$item_to))) data$item_to = getItem(api, data$item_to)
 	mangalPost(api, 'interaction', data)
 }
