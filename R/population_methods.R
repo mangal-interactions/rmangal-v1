@@ -24,6 +24,6 @@ getPopulation <- function(api, id) mangalGet(api, 'population', id)
 #' @param data the population in list format
 addPopulation <- function(api, data)
 {
-	data$taxa = getTaxa(api, data$taxa)
+	if(!(is.list(data$taxa))) data$taxa = getTaxa(api, data$taxa)
 	mangalPost(api, 'population', data)
 }

@@ -1,0 +1,22 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Uploading data}
+-->
+
+```{r load}
+library(rmangal)
+library(plyr)
+```
+
+# contributing data through R
+
+The goal of this vignette is to present the protocol to *upload* data into the `mangal` database. By default, the `rmangal` package works with the database from the *Université du Québec à Rimouski*, in which data are publicly available under the *Creative Commons 0 waiver*.
+
+Contributing data requires (i) that you have an identifier and password in the database you want to send the data to, and (ii) that the database allows the `POST` methods on the object you want to send.
+
+```{r auth}
+netdb <- mangalapi(usr='test', pwd='test')
+netdb$taxa$verbs
+```
+
+The `verbs` elements for each type of object will tell you which methods can be used (objects are uploaded with `post`).
