@@ -24,6 +24,21 @@ getPopulation <- function(api, id) mangalGet(api, 'population', id)
 #' @param data the population in list format
 addPopulation <- function(api, data)
 {
-	if(!(is.list(data$taxa))) data$taxa = getTaxa(api, data$taxa)
+	data$taxa <- resToURI(api, data$taxa, 'taxa')
 	mangalPost(api, 'population', data)
+}
+
+#' @title Patch a population
+#' 
+#' @description Modify the informations for a population
+#' 
+#' @details
+#' Requires authentication
+#' 
+#' @param api a \code{\link{mangalapi}} object
+#' @param data the population in list format
+patchPopulation <- function(api, data)
+{
+	data$taxa <- resToURI(api, data$taxa, 'taxa')
+	mangalPatch(api, 'population', data)
 }
