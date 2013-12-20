@@ -25,11 +25,11 @@ getNetwork <- function(api, id) mangalGet(api, 'network', id)
 addNetwork <- function(api, data)
 {
 	data$owner <- whoAmI(api)
-	if(is.list(data$interactions)) data$interactions <- laply(data$interactions, function(x) resToURI(api, x, 'interaction'))
 	if(is.vector(data$interactions))
 	{
 		data$interactions <- aaply(data$interactions, 1, function(x) resToURI(api, x, 'interaction'))
 		names(data$interactions) <- NULL
 	}
+	if(is.list(data$interactions)) data$interactions <- laply(data$interactions, function(x) resToURI(api, x, 'interaction'))
 	mangalPost(api, 'network', data)
 }
