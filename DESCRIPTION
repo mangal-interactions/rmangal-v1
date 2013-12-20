@@ -27,3 +27,5 @@ Collate:
     'mangalPost.R'
     'network_as_graph.R'
     'population_methods.R'
+    'mangalPatch.R'
+    'user_methods.R'
