@@ -33,6 +33,23 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd =
 	}
 }
 
+#' @title Convert resource or ID to URI
+#' 
+#' @description Returns the URI of a resource, for internal use only
+#' 
+#' @param api a \code{\link{mangalapi}} object
+#' @param obj the object to convert
+#' @param obj the type of object to convert
+resToURI <- function(api, obj, type)
+{
+	if(is.list(obj))
+	{
+		return(paste(api$trail, '/', type, '/', obj$id, '/', sep=''))
+	} else {
+		return(paste(api$trail, '/', type, '/', obj, '/', sep=''))
+	}
+}
+
 #' @title Get self user info
 #' 
 #' @description Get self user info needed for paternity of data
@@ -41,5 +58,6 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd =
 whoAmI <- function(api)
 {
 	if(is.null(api$auth)) stop("You must be logged in")
-	return(content(httr::GET(paste(api$user$url,'?username=',api$usr,sep='')))$objects[[1]])
+	us <- content(httr::GET(paste(api$user$url,'?username=',api$usr,sep='')))$objects[[1]]
+	return(resToURI(api, us, 'user'))
 }

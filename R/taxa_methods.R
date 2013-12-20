@@ -23,3 +23,14 @@ getTaxa <- function(api, id) mangalGet(api, 'taxa', id)
 #' @param api a \code{\link{mangalapi}} object
 #' @param data the taxa in list format
 addTaxa <- function(api, data) mangalPost(api, 'taxa', data)
+
+#' @title Patch a taxa
+#' 
+#' @description Modify the informations for a taxa
+#' 
+#' @details
+#' Requires authentication
+#' 
+#' @param api a \code{\link{mangalapi}} object
+#' @param data the taxa in list format
+patchTaxa <- function(api, data) mangalPatch(api, 'taxa', data)
