@@ -10,6 +10,18 @@ getUser <- function(api)
 	mangalGet(api, 'user', tail(strsplit(whoAmI(api),'/')[[1]],1))
 }
 
+#' @title Sign-up
+#' 
+#' @description Register as a new user
+#' 
+#' @details
+#' Pick a good password!
+#' 
+#' @param api a \code{\link{mangalapi}} object
+#' @param usr a username
+#' @param password
+signUp <- function(api, usr, pwd) mangalPost(api, 'user', list(username=usr, password=pwd))
+
 #' @title Patch self user info
 #' 
 #' @description Modify my user info
