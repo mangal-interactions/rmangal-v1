@@ -8,3 +8,9 @@ vign2pdfhtml: vignettes
 	cd vignettes;\
 		pandoc rmangal_basics.md -o rmangal_basics.pdf;\
 		pandoc rmangal_basics.md -o rmangal_basics.html;
+
+clean:
+	cd vignettes;\
+		rm *html;\
+		rm -r figure;\
+		rm *.md

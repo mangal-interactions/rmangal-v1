@@ -4,7 +4,10 @@
 -->
 
 ```{r load}
-library(rmangal)
+library(devtools)
+devtools::load_all('..')
+devtools::document()
+#library(rmangal)
 ```
 
 # rmangal - R access to hosted MANGAL API
