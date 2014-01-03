@@ -1,0 +1,18 @@
+\name{patchReference}
+\alias{patchReference}
+\title{Patch a reference}
+\usage{
+patchReference(api, data)
+}
+\arguments{
+  \item{api}{a \code{\link{mangalapi}} object}
+
+  \item{data}{the reference in list format}
+}
+\description{
+Modify the informations for a reference
+}
+\details{
+Requires authentication
+}
+

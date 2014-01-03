@@ -33,4 +33,4 @@ addReference <- function(api, data) mangalPost(api, 'reference', data)
 #' 
 #' @param api a \code{\link{mangalapi}} object
 #' @param data the reference in list format
-patchPopulation <- function(api, data) mangalPatch(api, 'reference', data)
+patchReference <- function(api, data) mangalPatch(api, 'reference', data)
