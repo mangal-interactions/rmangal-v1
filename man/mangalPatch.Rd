@@ -2,7 +2,7 @@
 \alias{mangalPatch}
 \title{Patch an object}
 \usage{
-  mangalPatch(api, type, data)
+mangalPatch(api, type, data)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}
@@ -12,6 +12,6 @@
   \item{data}{the object in list form}
 }
 \description{
-  Patch an existing object
+Patch an existing object
 }
 

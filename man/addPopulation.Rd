@@ -2,7 +2,7 @@
 \alias{addPopulation}
 \title{Add a new population}
 \usage{
-  addPopulation(api, data)
+addPopulation(api, data)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}
@@ -10,9 +10,9 @@
   \item{data}{the population in list format}
 }
 \description{
-  Post a new population to the database
+Post a new population to the database
 }
 \details{
-  Requires authentication
+Requires authentication
 }
 

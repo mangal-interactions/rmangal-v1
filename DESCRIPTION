@@ -15,17 +15,3 @@ Description: This packages offers R functions to interact with the mangal API,
 License: BSD_2_clause
 URL: https://github.com/tpoisot/rmangal
 BugReports https: //github.com/tpoisot/rmangal/issues
-Collate:
-    'mangalapi.R'
-    'pagerResources.R'
-    'mangalGet.R'
-    'mangalList.R'
-    'network_methods.R'
-    'dataset_methods.R'
-    'taxa_methods.R'
-    'interaction_methods.R'
-    'mangalPost.R'
-    'network_as_graph.R'
-    'population_methods.R'
-    'mangalPatch.R'
-    'user_methods.R'

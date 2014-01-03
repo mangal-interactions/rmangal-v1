@@ -1,8 +1,8 @@
-\name{resToURI}
-\alias{resToURI}
-\title{Convert resource or ID to URI}
+\name{multi_resToURI}
+\alias{multi_resToURI}
+\title{Convert several resources or IDs to URI}
 \usage{
-resToURI(api, obj, type)
+multi_resToURI(api, obj, type)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}
@@ -12,6 +12,6 @@ resToURI(api, obj, type)
   \item{type}{the type of object to convert}
 }
 \description{
-Returns the URI of a resource, for internal use only
+For internal use only
 }
 

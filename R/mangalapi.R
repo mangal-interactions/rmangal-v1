@@ -39,7 +39,7 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd =
 #' 
 #' @param api a \code{\link{mangalapi}} object
 #' @param obj the object to convert
-#' @param obj the type of object to convert
+#' @param type the type of object to convert
 resToURI <- function(api, obj, type)
 {
 	if(is.list(obj))
@@ -48,6 +48,30 @@ resToURI <- function(api, obj, type)
 	} else {
 		return(paste(api$trail, '/', type, '/', obj, '/', sep=''))
 	}
+}
+
+#' @title Convert several resources or IDs to URI
+#' 
+#' @description For internal use only
+#' 
+#' @param api a \code{\link{mangalapi}} object
+#' @param obj the object to convert
+#' @param type the type of object to convert
+multi_resToURI <- function(api, obj, type)
+{
+	if(is.vector(obj))
+	{
+		obj <- aaply(obj, 1, function(x) resToURI(api, x, type))
+		names(obj) <- NULL
+		if(length(obj) == 1) obj <- list(obj)
+		return(obj)
+	}
+	if(is.list(obj))
+	{
+		data$networks <- laply(obj, function(x) resToURI(api, x, type))
+		return(obj)
+	}
+	stop("The resource you try to convert must be a vector or list")
 }
 
 #' @title Get self user info

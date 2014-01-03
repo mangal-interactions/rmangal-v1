@@ -25,11 +25,22 @@ getNetwork <- function(api, id) mangalGet(api, 'network', id)
 addNetwork <- function(api, data)
 {
 	data$owner <- whoAmI(api)
-	if(is.vector(data$interactions))
-	{
-		data$interactions <- aaply(data$interactions, 1, function(x) resToURI(api, x, 'interaction'))
-		names(data$interactions) <- NULL
-	}
-	if(is.list(data$interactions)) data$interactions <- laply(data$interactions, function(x) resToURI(api, x, 'interaction'))
+	data$interactions <- multi_resToURI(api, data$interactions, 'interaction')
 	mangalPost(api, 'network', data)
+}
+
+#' @title Patch a network
+#' 
+#' @description Modify the informations for a network
+#' 
+#' @details
+#' Requires authentication
+#' 
+#' @param api a \code{\link{mangalapi}} object
+#' @param data the network in list format
+patchNetwork <- function(api, data)
+{
+	data$owner <- whoAmI(api)
+	data$interactions <- multi_resToURI(api, data$interactions, 'interaction')
+	mangalPatch(api, 'network', data)
 }

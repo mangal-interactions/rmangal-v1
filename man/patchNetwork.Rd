@@ -1,8 +1,8 @@
-\name{patchUser}
-\alias{patchUser}
-\title{Patch self user info}
+\name{patchNetwork}
+\alias{patchNetwork}
+\title{Patch a network}
 \usage{
-patchUser(api, data)
+patchNetwork(api, data)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}
@@ -10,7 +10,7 @@ patchUser(api, data)
   \item{data}{the network in list format}
 }
 \description{
-Modify my user info
+Modify the informations for a network
 }
 \details{
 Requires authentication

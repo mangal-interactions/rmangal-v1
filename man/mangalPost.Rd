@@ -2,7 +2,7 @@
 \alias{mangalPost}
 \title{Post an object}
 \usage{
-  mangalPost(api, type, data)
+mangalPost(api, type, data)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}
@@ -12,6 +12,6 @@
   \item{data}{the object in list form}
 }
 \description{
-  Add a new object to the database
+Add a new object to the database
 }
 

@@ -2,7 +2,7 @@
 \alias{network_as_graph}
 \title{Get a network}
 \usage{
-  network_as_graph(api, id, level = "taxa", ...)
+network_as_graph(api, id, level = "taxa", ...)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}
@@ -14,6 +14,6 @@
   \item{...}{reserved for future options}
 }
 \description{
-  ...
+...
 }
 

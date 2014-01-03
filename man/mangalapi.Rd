@@ -2,8 +2,8 @@
 \alias{mangalapi}
 \title{Initialise a mangal API object}
 \usage{
-  mangalapi(url = "http://mangal.uqar.ca", v = "v1",
-    usr = NULL, pwd = NULL)
+mangalapi(url = "http://mangal.uqar.ca", v = "v1", usr = NULL,
+  pwd = NULL)
 }
 \arguments{
   \item{url}{The URL to the server}
@@ -15,7 +15,7 @@
   \item{pwd}{The password}
 }
 \description{
-  Initialise a mangal API obect, with direct reference to
-  the resources
+Initialise a mangal API obect, with direct reference to the
+resources
 }
 
