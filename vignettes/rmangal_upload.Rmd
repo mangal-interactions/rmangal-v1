@@ -5,18 +5,35 @@
 
 ```{r load}
 library(rmangal)
-library(plyr)
 ```
 
-# contributing data through R
+# Contributing data through R
 
 The goal of this vignette is to present the protocol to *upload* data into the `mangal` database. By default, the `rmangal` package works with the database from the *Université du Québec à Rimouski*, in which data are publicly available under the *Creative Commons 0 waiver*.
 
-Contributing data requires (i) that you have an identifier and password in the database you want to send the data to, and (ii) that the database allows the `POST` methods on the object you want to send.
+If you do not have an identifier, the first thing is to create one:
 
-```{r auth}
-netdb <- mangalapi(usr='test', pwd='test')
-netdb$taxa$verbs
+```{r signUp, eval=FALSE}
+me <- signUp(mangalapi(), 'my_username', 'my_password')
+# Let's add some informations
+me$first_name <- 'My first name'
+me$last_name <- 'My last name'
+me$email <- 'my@email.edu'
+# We then connect using the new identifier
+api <- mangalapi(usr=me$username, pwd=me$password)
+# And finally, first thing first, let's update our contact info
+me <- patchUser(api, me)
 ```
 
-The `verbs` elements for each type of object will tell you which methods can be used (objects are uploaded with `post`).
+You only need to sign-up once. You can start your future sessions with
+
+```{r login, eval=FALSE}
+api <- mangalapi(usr='my_username',pwd='my_password')
+```
+
+# The upload approach
+
+As explained in the vignette on the basics, querying information is best done from the top (`dataset` objects) to the bottom. The upload process follows the *inverse* progression: first create taxa, then interactions, then networks, then wrap them up in a dataset.
+
+## Creating taxa objects
+
