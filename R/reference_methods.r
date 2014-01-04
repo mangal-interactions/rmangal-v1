@@ -1,5 +1,6 @@
 #' @title List the references
-#'
+#' @export
+#' 
 #' @description Returns a list of references
 #'
 #' @param api a \code{\link{mangalapi}} object
@@ -14,6 +15,7 @@ listReference <- function(api) mangalList(api, 'reference')
 getReference <- function(api, id) mangalGet(api, 'reference', id)
 
 #' @title Add a new reference
+#' @export
 #' 
 #' @description Post a new reference to the database
 #' 
@@ -25,6 +27,7 @@ getReference <- function(api, id) mangalGet(api, 'reference', id)
 addReference <- function(api, data) mangalPost(api, 'reference', data)
 
 #' @title Patch a reference
+#' @export
 #' 
 #' @description Modify the informations for a reference
 #' 

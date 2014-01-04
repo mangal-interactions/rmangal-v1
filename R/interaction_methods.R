@@ -1,5 +1,6 @@
 #' @title List the interactions currently in the DB
-#'
+#' @export
+#' 
 #' @description Returns a list of interactions
 #'
 #' @param api a \code{\link{mangalapi}} object
@@ -14,6 +15,7 @@ listInteraction <- function(api) mangalList(api, 'interaction')
 getInteraction <- function(api, id) mangalGet(api, 'interaction', id)
 
 #' @title Add a new interaction
+#' @export
 #' 
 #' @description Post a new interaction to the database
 #' 
@@ -34,6 +36,7 @@ addInteraction <- function(api, data)
 }
 
 #' @title Patch an interaction
+#' @export
 #' 
 #' @description Patch an interaction from the database
 #' 

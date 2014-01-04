@@ -1,5 +1,6 @@
 #' @title Get self user info
-#'
+#' @export
+#' 
 #' @description Returns a user object
 #'
 #' @param api a \code{\link{mangalapi}} object
@@ -11,6 +12,7 @@ getUser <- function(api)
 }
 
 #' @title Sign-up
+#' @export
 #' 
 #' @description Register as a new user
 #' 
@@ -23,6 +25,7 @@ getUser <- function(api)
 signUp <- function(api, usr, pwd) mangalPost(api, 'user', list(username=usr, password=pwd))
 
 #' @title Patch self user info
+#' @export
 #' 
 #' @description Modify my user info
 #' 

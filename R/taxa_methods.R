@@ -1,5 +1,6 @@
 #' @title List the taxa currently in the DB
-#'
+#' @export
+#' 
 #' @description Returns a list of taxa
 #'
 #' @param api a \code{\link{mangalapi}} object
@@ -14,6 +15,7 @@ listTaxa <- function(api) mangalList(api, 'taxa')
 getTaxa <- function(api, id) mangalGet(api, 'taxa', id)
 
 #' @title Add a new taxa object
+#' @export
 #' 
 #' @description Post a new taxa to the database
 #' 
@@ -25,6 +27,7 @@ getTaxa <- function(api, id) mangalGet(api, 'taxa', id)
 addTaxa <- function(api, data) mangalPost(api, 'taxa', data)
 
 #' @title Patch a taxa
+#' @export
 #' 
 #' @description Modify the informations for a taxa
 #' 

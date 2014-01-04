@@ -1,5 +1,6 @@
 #' @title Initialise a mangal API object
-#'
+#' @export
+#' 
 #' @description Initialise a mangal API obect, with direct reference to the resources
 #'
 #' @param url The URL to the server

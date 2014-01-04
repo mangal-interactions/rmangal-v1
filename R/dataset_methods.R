@@ -1,4 +1,5 @@
 #' @title List the datasets currently in the DB
+#' @export
 #'
 #' @description Returns a list of datasets
 #'
@@ -14,6 +15,7 @@ listDataset <- function(api) mangalList(api, 'dataset')
 getDataset <- function(api, id) mangalGet(api, 'dataset', id)
 
 #' @title Add a new dataset
+#' @export
 #' 
 #' @description Post a new dataset to the database
 #' 
@@ -32,6 +34,7 @@ addDataset <- function(api, data)
 }
 
 #' @title Patch a dataset
+#' @export
 #' 
 #' @description Patch a dataset from the database
 #' 

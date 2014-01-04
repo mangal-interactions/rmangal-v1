@@ -1,4 +1,5 @@
 #' @title Get a network
+#' @export
 #' 
 #' @description ...
 #' 

@@ -1,5 +1,6 @@
 #' @title List the populations
-#'
+#' @export
+#' 
 #' @description Returns a list of populations
 #'
 #' @param api a \code{\link{mangalapi}} object
@@ -14,6 +15,7 @@ listPopulation <- function(api) mangalList(api, 'population')
 getPopulation <- function(api, id) mangalGet(api, 'population', id)
 
 #' @title Add a new population
+#' @export
 #' 
 #' @description Post a new population to the database
 #' 
@@ -29,6 +31,7 @@ addPopulation <- function(api, data)
 }
 
 #' @title Patch a population
+#' @export
 #' 
 #' @description Modify the informations for a population
 #' 

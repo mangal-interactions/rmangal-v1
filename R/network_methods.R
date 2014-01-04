@@ -1,5 +1,6 @@
 #' @title List the networks currently in the DB
-#'
+#' @export
+#' 
 #' @description Returns a list of networks
 #'
 #' @param api a \code{\link{mangalapi}} object
@@ -14,6 +15,7 @@ listNetwork <- function(api) mangalList(api, 'network')
 getNetwork <- function(api, id) mangalGet(api, 'network', id)
 
 #' @title Add a new network
+#' @export
 #' 
 #' @description Post a new network to the database
 #' 
@@ -30,6 +32,7 @@ addNetwork <- function(api, data)
 }
 
 #' @title Patch a network
+#' @export
 #' 
 #' @description Modify the informations for a network
 #' 

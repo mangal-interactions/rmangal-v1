@@ -1,6 +1,8 @@
 \name{mangalGet}
 \alias{mangalGet}
-\title{Get an object of a given type}
+\title{Get an object of a given type
+
+Returns an object}
 \usage{
 mangalGet(api, type, id = NULL)
 }
@@ -12,6 +14,8 @@ mangalGet(api, type, id = NULL)
   \item{id}{the ID of the object}
 }
 \description{
+Get an object of a given type
+
 Returns an object
 }
 

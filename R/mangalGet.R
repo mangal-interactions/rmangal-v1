@@ -1,4 +1,4 @@
-#' Get an object of a given type
+#' @title Get an object of a given type
 #'
 #' Returns an object
 #'
