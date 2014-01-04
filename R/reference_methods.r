@@ -7,6 +7,7 @@
 listReference <- function(api) mangalList(api, 'reference')
 
 #' @title Get a reference
+#' @export
 #' 
 #' @description Returns a reference
 #'

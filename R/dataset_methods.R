@@ -7,6 +7,7 @@
 listDataset <- function(api) mangalList(api, 'dataset')
 
 #' @title Get a particular dataset
+#' @export
 #'
 #' @description Returns a dataset object
 #'

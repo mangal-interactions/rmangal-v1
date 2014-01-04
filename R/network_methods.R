@@ -7,7 +7,8 @@
 listNetwork <- function(api) mangalList(api, 'network')
 
 #' @title Get a particular network
-#'
+#' @export
+#' 
 #' @description Returns a network object
 #'
 #' @param api a \code{\link{mangalapi}} object

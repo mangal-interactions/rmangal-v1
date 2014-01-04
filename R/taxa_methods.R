@@ -7,7 +7,8 @@
 listTaxa <- function(api) mangalList(api, 'taxa')
 
 #' @title Get a particular taxa
-#'
+#' @export
+#' 
 #' @description Returns a taxa object
 #'
 #' @param api a \code{\link{mangalapi}} object

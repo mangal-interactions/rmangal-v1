@@ -7,7 +7,8 @@
 listPopulation <- function(api) mangalList(api, 'population')
 
 #' @title Get a population
-#'
+#' @export
+#' 
 #' @description Returns a population
 #'
 #' @param api a \code{\link{mangalapi}} object
