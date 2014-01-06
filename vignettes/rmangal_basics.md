@@ -3,12 +3,40 @@
 %\VignetteIndexEntry{Basics of rmangal}
 -->
 
-```{r load}
+
+```r
 library(devtools)
-devtools::load_all('..')
-devtools::document()
-#library(rmangal)
+devtools::load_all("..")
 ```
+
+```
+## Loading rmangal
+## Loading required namespace: rjson
+## Loading required namespace: plyr
+## Loading required namespace: igraph
+## Loading required package: rjson
+## Loading required package: httr
+## Loading required package: plyr
+## Loading required package: igraph
+```
+
+```r
+devtools::document()
+```
+
+```
+## Loading required package: roxygen2
+```
+
+```
+## Error: No description at
+## /home/tpoisot/Projects/Code/rmangal/vignettes/DESCRIPTION
+```
+
+```r
+# library(rmangal)
+```
+
 
 # rmangal - R access to hosted MANGAL API
 
@@ -30,30 +58,66 @@ ecological interactions.
 
 The only information needed to start working is the URL of the database you want to interact with. By default, `rmangal` will connect you to the main database (at the *Université du Québec à Rimouski*) - you can access the [website] to know more.
 
-```{r firstStep}
-netdb <- mangalapi('http://localhost:8000')
+
+```r
+netdb <- mangalapi("http://localhost:8000")
 ```
+
 
 The `netdb` object is used by all other functions to know where to connect to do a particular operation. We can see the list of methods that are available to work with:
 
-```{r methodsOK}
+
+```r
 names(netdb)
 ```
 
+```
+##  [1] "base"        "trail"       "dataset"     "environment" "interaction"
+##  [6] "item"        "network"     "population"  "reference"   "taxa"       
+## [11] "trait"       "user"
+```
+
+
 As an user, you won't have to use this information yourself, but it's important for the `rmangal` package to know which URL to use to retrieve information. The first thing one might want to do, is get a list of all datasets available, and print their name:
 
-```{r listDataset}
+
+```r
 all_datasets <- listDataset(netdb)
+```
+
+```
+## 2 object(s) found
+```
+
+```r
 laply(all_datasets, function(x) x$name)
 ```
 
+```
+## [1] "Fictional metawebs" "Lamellodiscus"
+```
+
+
 In other situations, you may know the `id` of the dataset you want to work with. You can use the `getDataset` function to access it directly, see its name, and how many networks are in it.
 
-```{r getDataset}
+
+```r
 first_dataset <- getDataset(netdb, 1)
 first_dataset$name
+```
+
+```
+## [1] "Fictional metawebs"
+```
+
+```r
 length(first_dataset$networks)
 ```
+
+```
+## [1] 1
+```
+
 
 All functions to access information within `rmangal` follow the same naming convention: `get*` will retrieve a *single* object identified by its `id`, and `list*` will retrieve a list of *all* objects of this type. The type of object to retrieve is the *singular* of the object name with its first letter capitalized (*e.g.* networks are `*Network`, taxa are `*Taxa`, ...).
 
@@ -61,9 +125,13 @@ All functions to access information within `rmangal` follow the same naming conv
 
 In this section, we'll reconstruct a network and plot it using `igraph`.
 
-```{r iPlot}
+
+```r
 plot(network_as_graph(netdb, 1))
 ```
+
+![plot of chunk iPlot](figure/iPlot.png) 
+
 
 Done!
 

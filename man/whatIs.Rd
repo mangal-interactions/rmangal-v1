@@ -1,0 +1,19 @@
+\name{whatIs}
+\alias{whatIs}
+\title{How should objects be formatted}
+\usage{
+whatIs(api, type, ...)
+}
+\arguments{
+  \item{api}{a \code{\link{mangalapi}} object}
+
+  \item{type}{the type of object you want to know about}
+
+  \item{...}{researved for future use (export as JSON
+  schemes)}
+}
+\description{
+Prints a data.frame with informations about object format
+and help text
+}
+

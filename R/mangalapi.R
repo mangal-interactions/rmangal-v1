@@ -28,6 +28,11 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd =
 			methods[[names(list_of_methods)[i]]]$url <- paste(url,list_of_methods[[i]]$list_endpoint, sep='')
          methods[[names(list_of_methods)[i]]]$verbs <- content(httr::GET(paste(url, list_of_methods[[i]]$schema, sep='')))$allowed_list_http_methods
 		}
+		if(!(is.null(usr) & is.null(pwd)))
+		{
+			us <- content(httr::GET(paste(methods$user$url,'?username=',methods$usr,sep='')))$objects[[1]]
+			methods$me <- resToURI(methods, us, 'user')
+		}
 		return(methods)
 	} else {
 		stop(http_status(queryset)$message)
@@ -83,8 +88,7 @@ multi_resToURI <- function(api, obj, type)
 whoAmI <- function(api)
 {
 	if(is.null(api$auth)) stop("You must be logged in")
-	us <- content(httr::GET(paste(api$user$url,'?username=',api$usr,sep='')))$objects[[1]]
-	return(resToURI(api, us, 'user'))
+	return(api$me)
 }
 
 #' @title List the available resources
