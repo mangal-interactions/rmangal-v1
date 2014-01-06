@@ -11,6 +11,7 @@ mangalPatch <- function(api, type, data)
 	if(is.null(data)) stop("Please provide data to patch the database")
 	if(is.null(data$id)) stop("The ID field must be present to patch")
 	if(is.null(api[[type]]) | !("patch" %in% api[[type]]$verbs)) stop(paste("This API do not permit PATCHing objects of type ",type,sep=''))
+	data$owner <- whoAmI(api)
 	queryset <- httr::PATCH(paste(api[[type]]$url, data$id, sep=''), body = toJSON(data), add_headers("Content-type" = "application/json"), api$auth)
 	if(http_status(queryset)$category == "success")
 	{

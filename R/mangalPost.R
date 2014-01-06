@@ -10,6 +10,7 @@ mangalPost <- function(api, type, data)
 	if(!type == 'user') if(is.null(api$auth)) stop("You must be authenticated to post")
    if(is.null(data)) stop("Please provide data to add to the database")
    if(is.null(api[[type]]) | !("post" %in% api[[type]]$verbs)) stop(paste("This API do not permit POSTing objects of type ",type,sep=''))
+	data$owner <- whoAmI(api)
 	queryset <- httr::POST(api[[type]]$url, body = toJSON(data), add_headers("Content-type" = "application/json"), api$auth)
 	if(http_status(queryset)$category == "success")
 	{

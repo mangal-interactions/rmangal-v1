@@ -27,7 +27,6 @@ getNetwork <- function(api, id) mangalGet(api, 'network', id)
 #' @param data the network in list format
 addNetwork <- function(api, data)
 {
-	data$owner <- whoAmI(api)
 	data$interactions <- multi_resToURI(api, data$interactions, 'interaction')
 	mangalPost(api, 'network', data)
 }
@@ -44,7 +43,6 @@ addNetwork <- function(api, data)
 #' @param data the network in list format
 patchNetwork <- function(api, data)
 {
-	data$owner <- whoAmI(api)
 	data$interactions <- multi_resToURI(api, data$interactions, 'interaction')
 	mangalPatch(api, 'network', data)
 }

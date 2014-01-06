@@ -22,6 +22,6 @@ network_as_graph <- function(api, id, level = 'taxa', ...)
 	}	
 	edge_list <- edge_list[,-1]
 	edge_list <- edge_list[,c('from', 'to', 'taxa_from', 'taxa_to', 'ecotype')]
-	G = graph.data.frame(edge_list, vertices=vertices_df)
+	G <- graph.data.frame(edge_list, vertices=vertices_df)
 	return(G)
 }

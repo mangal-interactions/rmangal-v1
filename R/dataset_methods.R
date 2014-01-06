@@ -27,7 +27,6 @@ getDataset <- function(api, id) mangalGet(api, 'dataset', id)
 #' @param data the dataset in list format
 addDataset <- function(api, data)
 {
-	data$owner <- whoAmI(api)
 	data$networks <- multi_resToURI(api, data$networks, 'network')
 	if(!is.null(data$papers)) data$papers <- multi_resToURI(api, data$papers, 'reference')
 	if(!is.null(data$data)) data$data <- multi_resToURI(api, data$data, 'reference')
@@ -46,7 +45,6 @@ addDataset <- function(api, data)
 #' @param data the dataset in list format
 patchDataset <- function(api, data)
 {
-	data$owner <- whoAmI(api)
 	data$networks <- multi_resToURI(api, data$networks, 'network')
 	if(!is.null(data$papers)) data$papers <- multi_resToURI(api, data$papers, 'reference')
 	if(!is.null(data$data)) data$data <- multi_resToURI(api, data$data, 'reference')

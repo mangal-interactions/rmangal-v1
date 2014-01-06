@@ -86,3 +86,39 @@ whoAmI <- function(api)
 	us <- content(httr::GET(paste(api$user$url,'?username=',api$usr,sep='')))$objects[[1]]
 	return(resToURI(api, us, 'user'))
 }
+
+#' @title List the available resources
+#' @export
+#' 
+#' @description Gives an array with the available resources
+#' 
+#' @param api a \code{\link{mangalapi}} object
+availableResources <- function(api) names(api)
+
+#' @title How should objects be formatted
+#' @export
+#' 
+#' @description Prints a data.frame with informations about object format and help text
+#'
+#' @param api a \code{\link{mangalapi}} object
+#' @param type the type of object you want to know about
+#' @param ... researved for future use (export as JSON schemes)
+whatIs <- function(api, type, ...)
+{
+	if(!(type %in% availableResources(api))) stop(paste("This API do not implement objects of type ",type,'. See ?availableResources for more.',sep=''))
+	schema <- paste(api[[type]]$url,'schema',sep='')
+	type_spec <- content(httr::GET(schema))
+	# Print a data.frame with the fields
+	spec <- ldply(type_spec$fields, summarize, help = help_text, type = type, null = as.character(nullable), unique = unique, values = ifelse(exists('choices'), paste(choices, collapse=', ') , ''))
+	colnames(spec)[1] = 'field'
+	# Remove owner, public and id
+	spec = subset(spec, !(field %in% c('owner', 'id', 'public')))
+	# Give more explicit messages (case by case)
+	if(type == 'dataset')
+	{
+		spec[which(spec$field=='data'),'help'] = "A list of the id of references for the data (e.g. data papers, figshare dataset)"
+		spec[which(spec$field=='networks'),'help'] = "A list of either the id of networks, or their representation in list format"
+	}
+	# Return the dataframe
+	return(spec)
+}
