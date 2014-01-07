@@ -9,7 +9,8 @@ Depends:
     rjson,
     httr,
     plyr,
-    igraph
+    igraph,
+    stringr
 Description: This packages offers R functions to interact with the mangal API,
     to retrieve and format data on species interaction networks.
 License: BSD_2_clause
