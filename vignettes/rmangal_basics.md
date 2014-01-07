@@ -4,38 +4,16 @@
 -->
 
 
-```r
-library(devtools)
-devtools::install_github("rmangal", "mangal-wg")
-```
-
-```
-## Installing github repo rmangal/master from mangal-wg
-## Downloading rmangal.zip from https://github.com/mangal-wg/rmangal/archive/master.zip
-## Installing package from /tmp/RtmpzfGx4P/rmangal.zip
-```
-
-```
-## Error: 'unzip' must be a single character string
-```
-
-```r
-library(rmangal)
-```
-
-```
-## Loading required package: rjson
-## Loading required package: httr
-## Loading required package: plyr
-## Loading required package: igraph
-```
 
 
 # rmangal - R access to hosted MANGAL API
 
-The `mangal` project is a [data specification][dataspec] and [API][api],
+The `mangal` project is a [data specification][dataspec] and [API],
 desgined to facilitate the retrieval, archival, and re-use of data on
 ecological interactions.
+
+[API]: http://mangal.uqar.ca/api/v1/?format=json
+[dataspec]: http://mangal.uqar.ca/doc/spec/
 
 # An overview of the mangal format
 
@@ -210,8 +188,63 @@ And similarly, the content of the first interaction of this network is
 ```
 
 ```
-## Error: impossible de trouver la fonction "getInteraction"
+## $description
+## NULL
+## 
+## $ecotype
+## [1] "pollination"
+## 
+## $id
+## [1] "1"
+## 
+## $item_from
+## NULL
+## 
+## $item_to
+## NULL
+## 
+## $owner
+## [1] "tpoisot"
+## 
+## $pop_from
+## NULL
+## 
+## $pop_to
+## NULL
+## 
+## $strength_f
+## [1] 0.1667
+## 
+## $strength_t
+## NULL
+## 
+## $taxa_from
+## [1] "33"
+## 
+## $taxa_to
+## [1] "1"
+## 
+## $units_f
+## [1] "visits per minute"
+## 
+## $units_t
+## NULL
 ```
 
 
+To get a sense of what each property mean, you simply need to call `whatIs(netdb, 'interaction')`.
+
 # Example: plotting a network
+
+With this information in hand, getting a full network with all taxa information is simply a matter of following each interaction down to the taxa level, and putting this together in a single object. It's easy, but tedious. The `network_as_graph` function will take care of it automatically, and pull a network a an `igraph` object:
+
+
+```r
+G <- network_as_graph(netdb, 1)
+A <- get.adjacency(G, sparse = FALSE)
+A <- A[-which(rowSums(A) == 0), -which(colSums(A) == 0)]
+visweb(A)
+```
+
+![A visualisation of the network.](figure/unnamed-chunk-1.png) 
+

@@ -3,41 +3,67 @@
 %\VignetteIndexEntry{Basics of rmangal}
 -->
 
-```{r load}
+```{r load,warning=FALSE, eval=TRUE, echo=FALSE, message=FALSE}
 library(devtools)
+options("stringsAsFactors" = FALSE)
+if(getOption('unzip')=='') options('unzip' = 'unzip')
 devtools::install_github('rmangal','mangal-wg')
 library(rmangal)
+library(bipartite)
 ```
-
 # rmangal - R access to hosted MANGAL API
 
-The `mangal` project is a [data specification][dataspec] and [API][api],
-desgined to facilitate the retrieval, archival, and re-use of data on
-ecological interactions.
+The `mangal` project is a [data specification][dataspec] and [API], desgined
+to facilitate the retrieval, archival, and re-use of data on ecological
+interactions.
+
+[API]: http://mangal.uqar.ca/api/v1/?format=json
+[dataspec]: http://mangal.uqar.ca/doc/spec/
 
 # An overview of the mangal format
 
-The database (and underlying data format) is built around the idea that networks required meta-data to be fully understood. Instead of presenting them as 0/1 matrices, the `mangal` data format uses relations between objects as small as a possible. So as to understand the different elements, let's connect to a server implementing the API:
+The database (and underlying data format) is built around the idea that
+networks require meta-data to be fully understood. Instead of presenting
+them as 0/1 matrices, the `mangal` data format uses relations between objects
+as small as a possible. So as to understand the different elements, let's
+connect to a server implementing the API:
 
 ```{r firstStep}
 netdb <- mangalapi('http://localhost:8000')
 ```
 
-The `netdb` object has all the necessary informations for the `rmangal` package to work (and is the first argument of many functions). Let's look at the names of this object:
+The `netdb` object has all the necessary informations for the `rmangal`
+package to work (and is the first argument of many functions). Let's look
+at the names of this object:
 
 ```{r methodsOK}
 names(netdb)
 ```
 
-Note that if you are logged-in at this point (see the vignette about *Contributing data*), `netdb` will gain the attributes `auth` and `me`, so let's disregard these. Each element in this array corresponds to a *resource*, *i.e.* a type of object you can interact with. The data specification is a description of (i) the content of each field, and (ii) how it should be formatted. As no one is supposed to remember the whole data specification, a function called `whatIs` will give you a brief overview of what each field is supposed to mean:
+Note that if you are logged-in at this point (see the vignette about
+*Contributing data*), `netdb` will gain the attributes `auth` and `me`, so
+let's disregard these. Each element in this array corresponds to a *resource*,
+*i.e.* a type of object you can interact with. The data specification is
+a description of (i) the content of each field, and (ii) how it should be
+formatted. As no one is supposed to remember the whole data specification,
+a function called `whatIs` will give you a brief overview of what each field
+is supposed to mean:
 
 ```{r whatIs}
 whatIs(netdb, 'taxa')
 ```
 
-The `rmangal` package will return you objects as `list`s, and (in case you want to contribute data), will expect objects in the same format. In the `data.frame` returned by `whatIs`, there are all the informations to understand the objects that are returned. If you are not interested in contributing data, you will most likely be OK with the first two columns: the name of the field, and what it means. For example, this data frame gives you all the meta-data associated with a taxa. The `null` column will also tell you which fields are facultative, and which are mandatory.
+The `rmangal` package will return you objects as `list`s, and (in case you
+want to contribute data), will expect objects in the same format. In the
+`data.frame` returned by `whatIs`, there are all the informations to understand
+the objects that are returned. If you are not interested in contributing data,
+you will most likely be OK with the first two columns: the name of the field,
+and what it means. For example, this data frame gives you all the meta-data
+associated with a taxa. The `null` column will also tell you which fields
+are facultative, and which are mandatory.
 
-Let's compare this output with a `taxa` object pulled from the database (we'll see each element of the data structure and how to access it just after):
+Let's compare this output with a `taxa` object pulled from the database
+(we'll see each element of the data structure and how to access it just after):
 
 ```{r showtaxa}
 getTaxa(netdb, 1)
@@ -45,9 +71,33 @@ getTaxa(netdb, 1)
 
 ## Describing nodes
 
-Nodes in the networks can be of type `taxa`, `population`, and `item`. Calling `whatIs` on `item` or `population` will show that `population`s are linked to a `taxa`, and that `item`s are linked to a population. Here are the reasons why.
+Nodes in the networks can be of type `taxa`, `population`, and `item`. Calling
+`whatIs` on `item` or `population` will show that `population`s are linked to a
+`taxa`, and that `item`s are linked to a population. Here are the reasons why.
+
+A `population` is, simply put, one occurence of a `taxa`. If you sample
+several networks over space, and find the same species at different places,
+each of these local occurences is best represented as a `population`, linked
+to its `taxa`. If you sample individuals within these populations, or if
+you sample the network repeatedly through time, then each individual/time
+point is an `item` attached to this population. The `item` objects have a
+`level` property, which is either `individual` (invidual-based network) or
+`population` (time-replicated sampling). The important point is that, when
+looking at an `item` or a `population`, it is possible to move up to the
+`taxa` to which they belong.
 
 ## Describing interactions
+
+Interactions and networks are represented by `interaction`, `network`, and
+`dataset` - quite simply, a `dataset` is an ensemble of `network`s (*i.e.*
+at least one), and each `network` is an ensemble of `interaction`s (*i.e.*
+at least one). And each `interaction` is a link between (*a minima*) two
+`taxa`. The `interaction` format has `*_to` and `*_from` fields for all
+level of the data specification representing nodes (`taxa`, `population`,
+`item`). It is required that all of the "upper" levels are filled. For example,
+if the interaction is at the *individual* level, the `interaction` object will
+still have the `taxa_to`, `taxa_from`, `population_to` and `population_from`
+fields filled.
 
 ## Meta-data
 
@@ -71,4 +121,15 @@ And similarly, the content of the first interaction of this network is
 (int1 <- getInteraction(netdb, net1$interactions[1]))
 ```
 
+To get a sense of what each property mean, you simply need to call `whatIs(netdb, 'interaction')`.
+
 # Example: plotting a network
+
+With this information in hand, getting a full network with all taxa information is simply a matter of following each interaction down to the taxa level, and putting this together in a single object. It's easy, but tedious. The `network_as_graph` function will take care of it automatically, and pull a network a an `igraph` object:
+
+```{r, warning=FALSE, fig.cap="A visualisation of the network."}
+G <- network_as_graph(netdb, 1)
+A <- get.adjacency(G, sparse=FALSE)
+A <- A[-which(rowSums(A)==0),-which(colSums(A)==0)]
+visweb(A)
+```
