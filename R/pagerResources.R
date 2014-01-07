@@ -4,13 +4,13 @@
 #'
 #' @param api a \code{\link{mangalapi}} object
 #' @param queryset the entry point in the API
-pagerResources <- function(api, queryset)
+pagerResources <- function(api, queryset, verbose = FALSE)
 {
 	resources <- NULL
 	if(http_status(queryset)$category == "success")
 	{
 		fields <- content(queryset)
-		cat(paste(fields$meta$total_count,'object(s) found\n'))
+		if(verbose) cat(paste(fields$meta$total_count,'object(s) found\n'))
 		while(!(is.null(fields$meta$`next`)))
 		{
 			resources <- c(resources, fields$objects)

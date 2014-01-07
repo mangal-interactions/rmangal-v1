@@ -17,8 +17,10 @@ network_as_graph <- function(api, id, level = 'taxa', ...)
 		edge_list$from <- edge_list$taxa_from
 		edge_list$to <- edge_list$taxa_to
 		all_taxa <- unique(c(edge_list$to, edge_list$from))
-		vertices_df <- adply(all_taxa, 1, function(x) unlist(getTaxa(api, x)))
-		vertices_df$X1 <- vertices_df$id
+		vertices_list <- alply(all_taxa, 1, function(x) getTaxa(api, x))
+		vertices_df <- data.frame(laply(vertices_list, function(x) x))
+		attrnames <- colnames(vertices_df)
+		vertices_df <- vertices_df[,c('id', attrnames[!attrnames=='id'])]
 	}	
 	edge_list <- edge_list[,-1]
 	edge_list <- edge_list[,c('from', 'to', 'taxa_from', 'taxa_to', 'ecotype')]
