@@ -7,7 +7,8 @@
 listInteraction <- function(api) mangalList(api, 'interaction')
 
 #' @title Get a particular interaction
-#'
+#' @export
+#' 
 #' @description Returns a interaction object
 #'
 #' @param api a \code{\link{mangalapi}} object

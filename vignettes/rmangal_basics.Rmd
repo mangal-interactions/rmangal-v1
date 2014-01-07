@@ -5,9 +5,8 @@
 
 ```{r load}
 library(devtools)
-devtools::load_all('..')
-devtools::document()
-#library(rmangal)
+devtools::install_github('rmangal','mangal-wg')
+library(rmangal)
 ```
 
 # rmangal - R access to hosted MANGAL API
@@ -18,56 +17,58 @@ ecological interactions.
 
 # An overview of the mangal format
 
-%%TODO the replicated-web paradigm
-
-%%TODO general statement about the philosophy
-
-## Informations about interactions
-
-## Informations about network nodes
-
-# Getting to know the API
-
-The only information needed to start working is the URL of the database you want to interact with. By default, `rmangal` will connect you to the main database (at the *Université du Québec à Rimouski*) - you can access the [website] to know more.
+The database (and underlying data format) is built around the idea that networks required meta-data to be fully understood. Instead of presenting them as 0/1 matrices, the `mangal` data format uses relations between objects as small as a possible. So as to understand the different elements, let's connect to a server implementing the API:
 
 ```{r firstStep}
 netdb <- mangalapi('http://localhost:8000')
 ```
 
-The `netdb` object is used by all other functions to know where to connect to do a particular operation. We can see the list of methods that are available to work with:
+The `netdb` object has all the necessary informations for the `rmangal` package to work (and is the first argument of many functions). Let's look at the names of this object:
 
 ```{r methodsOK}
 names(netdb)
 ```
 
-As an user, you won't have to use this information yourself, but it's important for the `rmangal` package to know which URL to use to retrieve information. The first thing one might want to do, is get a list of all datasets available, and print their name:
+Note that if you are logged-in at this point (see the vignette about *Contributing data*), `netdb` will gain the attributes `auth` and `me`, so let's disregard these. Each element in this array corresponds to a *resource*, *i.e.* a type of object you can interact with. The data specification is a description of (i) the content of each field, and (ii) how it should be formatted. As no one is supposed to remember the whole data specification, a function called `whatIs` will give you a brief overview of what each field is supposed to mean:
 
-```{r listDataset}
-all_datasets <- listDataset(netdb)
-laply(all_datasets, function(x) x$name)
+```{r whatIs}
+whatIs(netdb, 'taxa')
 ```
 
-In other situations, you may know the `id` of the dataset you want to work with. You can use the `getDataset` function to access it directly, see its name, and how many networks are in it.
+The `rmangal` package will return you objects as `list`s, and (in case you want to contribute data), will expect objects in the same format. In the `data.frame` returned by `whatIs`, there are all the informations to understand the objects that are returned. If you are not interested in contributing data, you will most likely be OK with the first two columns: the name of the field, and what it means. For example, this data frame gives you all the meta-data associated with a taxa. The `null` column will also tell you which fields are facultative, and which are mandatory.
 
-```{r getDataset}
-first_dataset <- getDataset(netdb, 1)
-first_dataset$name
-length(first_dataset$networks)
+Let's compare this output with a `taxa` object pulled from the database (we'll see each element of the data structure and how to access it just after):
+
+```{r showtaxa}
+getTaxa(netdb, 1)
 ```
 
-All functions to access information within `rmangal` follow the same naming convention: `get*` will retrieve a *single* object identified by its `id`, and `list*` will retrieve a list of *all* objects of this type. The type of object to retrieve is the *singular* of the object name with its first letter capitalized (*e.g.* networks are `*Network`, taxa are `*Taxa`, ...).
+## Describing nodes
 
-# My first network
+Nodes in the networks can be of type `taxa`, `population`, and `item`. Calling `whatIs` on `item` or `population` will show that `population`s are linked to a `taxa`, and that `item`s are linked to a population. Here are the reasons why.
 
-In this section, we'll reconstruct a network and plot it using `igraph`.
+## Describing interactions
 
-```{r iPlot}
-plot(network_as_graph(netdb, 1))
+## Meta-data
+
+# Pulling data from the database
+
+The data can be accessed with either `get*` or `list*`. A function starting with `get` will retrieve a *single* record, identified by its `id`. A function starting by `list` will return *all* records of a given type (options to filter will be added in future releases). All the functions follow the same naming convention: either `get` or `list`, and the name of the resource (`taxa`, `reference`) with its first letter capitalized. So getting a list of all networks with their name, unique identifier, and number of interactions, is as simple as
+
+```{r listnetwork}
+head(ldply(listNetwork(netdb), summarize, id = id, name = name, n_int = length(interactions)))
 ```
 
-Done!
+If we want to have a look at  the first network, we simply need to write
 
-The `network_as_graph` function
+```{r getnetwork}
+(net1 <- getNetwork(netdb, 1))
+```
 
-[dataspec]: https://github.com/mangal-wg/mangal-schemes
-[website]: http://mangal.uqar.ca/
+And similarly, the content of the first interaction of this network is 
+
+```{r firstInterac}
+(int1 <- getInteraction(netdb, net1$interactions[1]))
+```
+
+# Example: plotting a network
