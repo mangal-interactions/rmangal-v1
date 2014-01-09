@@ -13,7 +13,15 @@ listNetwork <- function(api) mangalList(api, 'network')
 #'
 #' @param api a \code{\link{mangalapi}} object
 #' @param id the identifier of a network
-getNetwork <- function(api, id) mangalGet(api, 'network', id)
+getNetwork <- function(api, id)
+{
+  network <- mangalGet(api, 'network', id)
+  for(coord in c('latitude', 'longitude'))
+  {
+    # I shouldn't be doing that..
+    if(!is.null(network[[coord]])) network[[coord]] <- as.numeric(network[[coord]])
+  }
+}
 
 #' @title Add a new network
 #' @export
