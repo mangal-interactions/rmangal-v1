@@ -23,10 +23,11 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd =
 		methods$base <- url
 		methods$trail <- paste('/api', v, sep='/')
 		list_of_methods <- content(queryset)
-		for(i in c(1:length(list_of_methods)))
+		methods$resources <- names(list_of_methods)
+		for(res in methods$resources)
 		{
-			methods[[names(list_of_methods)[i]]]$url <- paste(url,list_of_methods[i]$list_endpoint, sep='')
-         methods[[names(list_of_methods)[i]]]$verbs <- content(httr::GET(paste(url, list_of_methods[[i]]$schema, sep='')))$allowed_list_http_methods
+			methods[[res]]$url <- paste(url,list_of_methods[[res]]$list_endpoint, sep='')
+         methods[[res]]$verbs <- content(httr::GET(paste(url, list_of_methods[[res]]$schema, sep='')))$allowed_list_http_methods
 		}
 		if(!(is.null(usr) & is.null(pwd)))
 		{
