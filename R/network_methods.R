@@ -21,6 +21,7 @@ getNetwork <- function(api, id)
     # I shouldn't be doing that..
     if(!is.null(network[[coord]])) network[[coord]] <- as.numeric(network[[coord]])
   }
+  return(network)
 }
 
 #' @title Add a new network
