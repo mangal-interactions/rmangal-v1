@@ -1,0 +1,18 @@
+\name{patchEnvironment}
+\alias{patchEnvironment}
+\title{Patch a environment}
+\usage{
+patchEnvironment(api, data)
+}
+\arguments{
+  \item{api}{a \code{\link{mangalapi}} object}
+
+  \item{data}{the environment in list format}
+}
+\description{
+Modify the informations for an environment
+}
+\details{
+Requires authentication
+}
+

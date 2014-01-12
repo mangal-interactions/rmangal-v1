@@ -1,0 +1,18 @@
+\name{addTrait}
+\alias{addTrait}
+\title{Add a new trait}
+\usage{
+addTrait(api, data)
+}
+\arguments{
+  \item{api}{a \code{\link{mangalapi}} object}
+
+  \item{data}{the trait in list format}
+}
+\description{
+Post a new trait to the database
+}
+\details{
+Requires authentication
+}
+

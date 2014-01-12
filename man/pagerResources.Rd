@@ -2,7 +2,7 @@
 \alias{pagerResources}
 \title{Read resources}
 \usage{
-pagerResources(api, queryset)
+pagerResources(api, queryset, verbose = FALSE)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}
