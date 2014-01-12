@@ -1,3 +1,8 @@
+rmangal 0.1.0
+=============
+* First complete release of the entirely usable package
+* At this point, everything should be back-compatible
+
 rmangal 0.0.1
 =============
 * First release on GitHub. Version Scheme: CRAN.MAJOR.MINOR. Unless MAJOR is at least 1, consider the package unstable.
