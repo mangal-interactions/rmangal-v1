@@ -22,4 +22,4 @@ printspec <- function(api, resource)
    print(paste("#", resource))
    kable(whatIs(api, resource))
 }
-alply(api$resources, 1, printspec)
+alply(api$resources, 1, function(x) printspec(api, x))
