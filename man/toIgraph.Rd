@@ -1,8 +1,8 @@
-\name{network_as_graph}
-\alias{network_as_graph}
-\title{Get a network}
+\name{toIgraph}
+\alias{toIgraph}
+\title{Export a network to igraph}
 \usage{
-network_as_graph(api, id, level = "taxa", ...)
+toIgraph(api, id, level = "taxa", ...)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}

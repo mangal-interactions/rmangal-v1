@@ -10,7 +10,8 @@ Depends:
     httr,
     plyr,
     igraph,
-    stringr
+    stringr,
+    cheddar
 Suggests:
     knitr
 Description: This packages offers R functions to interact with the mangal API,

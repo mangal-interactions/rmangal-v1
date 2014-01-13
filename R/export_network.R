@@ -1,4 +1,4 @@
-#' @title Get a network
+#' @title Export a network to igraph
 #' @export
 #' 
 #' @description ...
@@ -7,7 +7,7 @@
 #' @param id the id of the network
 #' @param level the level of aggregation
 #' @param ... reserved for future options
-network_as_graph <- function(api, id, level = 'taxa', ...)
+toIgraph <- function(api, id, level = 'taxa', ...)
 {
 	if(!(level %in% c('taxa', 'population', 'item'))) stop("Level must be one of taxa, population, item")
 	network <- getNetwork(api, id)
@@ -26,4 +26,19 @@ network_as_graph <- function(api, id, level = 'taxa', ...)
 	edge_list <- edge_list[,c('from', 'to', 'taxa_from', 'taxa_to', 'ecotype')]
 	G <- graph.data.frame(edge_list, vertices=vertices_df)
 	return(G)
+}
+
+
+#' @title Export a network to cheddar
+#' @export
+#' 
+#' @description ...
+#' 
+#' @param api a \code{\link{mangalapi}} object
+#' @param id the id of the network
+#' @param level the level of aggregation
+#' @param ... reserved for future options
+toCheddar <- function(api, id, level = 'taxa', ...)
+{
+   stop("Coming soon")
 }

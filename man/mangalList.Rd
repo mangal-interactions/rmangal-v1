@@ -2,7 +2,7 @@
 \alias{mangalList}
 \title{List all objects of a given type}
 \usage{
-mangalList(api, type)
+mangalList(api, type, filtering = NULL)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}
