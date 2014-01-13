@@ -20,6 +20,6 @@ We can see what eahc function is doing with the `whatIs` function:
 printspec <- function(api, resource)
 {
    print(paste("#", resource))
-   kable(whatIs(api, resource))
+   knitr::kable(whatIs(api, resource))
 }
 alply(api$resources, 1, function(x) printspec(api, x))
