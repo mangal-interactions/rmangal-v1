@@ -5,7 +5,7 @@ Title: R interface to the mangal database of ecological networks
 Author: Tim Poisot <t.poisot@gmail.com>
 Maintainer: Tim Poisot <t.poisot@gmail.com>
 Depends:
-    R (>= 2.0.0),
+    R (>= 3.0.0),
     rjson,
     httr,
     plyr,

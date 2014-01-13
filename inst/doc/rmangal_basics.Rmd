@@ -4,12 +4,7 @@
 -->
 
 ```{r load,warning=FALSE, eval=TRUE, echo=FALSE, message=FALSE}
-library(devtools)
-options("stringsAsFactors" = FALSE)
-if(getOption('unzip')=='') options('unzip' = 'unzip')
-devtools::install_github('rmangal','mangal-wg')
 library(rmangal)
-library(bipartite)
 ```
 # rmangal - R access to hosted MANGAL API
 
@@ -29,7 +24,7 @@ as small as a possible. So as to understand the different elements, let's
 connect to a server implementing the API:
 
 ```{r firstStep}
-netdb <- mangalapi('http://localhost:8000')
+netdb <- mangalapi()
 ```
 
 The `netdb` object has all the necessary informations for the `rmangal`
@@ -37,7 +32,7 @@ package to work (and is the first argument of many functions). Let's look
 at the names of this object:
 
 ```{r methodsOK}
-names(netdb)
+netdb$resources
 ```
 
 Note that if you are logged-in at this point (see the vignette about
