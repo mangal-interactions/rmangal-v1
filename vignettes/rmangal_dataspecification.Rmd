@@ -1,0 +1,24 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{The format of mangal data}
+-->
+
+```{r load,warning=FALSE, eval=TRUE, echo=FALSE, message=FALSE}
+library(rmangal)
+```
+
+We can get a list of resources with:
+
+```{r hello}
+api <- mangalapi()
+api$resources
+```
+
+We can see what eahc function is doing with the `whatIs` function:
+
+```{r printdoc, results='asis'}
+printspec <- function(api, resource)
+{
+   print(paste("#", resource))
+   kable(whatIs(api, resource))
+}
