@@ -19,7 +19,7 @@ We can see what eahc function is doing with the `whatIs` function:
 ```{r printdoc, results='asis'}
 printspec <- function(api, resource)
 {
-   print(paste("#", resource))
-   knitr::kable(whatIs(api, resource))
+   print(paste("<h3>", resource, "</h3>"))
+   knitr::kable(whatIs(api, resource), format='html')
 }
 alply(api$resources, 1, function(x) printspec(api, x))
