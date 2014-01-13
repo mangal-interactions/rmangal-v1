@@ -1,0 +1,18 @@
+\name{addItem}
+\alias{addItem}
+\title{Add a new item}
+\usage{
+addItem(api, data)
+}
+\arguments{
+  \item{api}{a \code{\link{mangalapi}} object}
+
+  \item{data}{the item in list format}
+}
+\description{
+Post a new item to the database
+}
+\details{
+Requires authentication
+}
+

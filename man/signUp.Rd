@@ -9,7 +9,7 @@ signUp(api, usr, pwd)
 
   \item{usr}{a username}
 
-  \item{password}{}
+  \item{pwd}{the password}
 }
 \description{
 Register as a new user

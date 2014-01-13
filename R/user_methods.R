@@ -21,7 +21,7 @@ getUser <- function(api)
 #' 
 #' @param api a \code{\link{mangalapi}} object
 #' @param usr a username
-#' @param password
+#' @param pwd the password
 signUp <- function(api, usr, pwd) mangalPost(api, 'user', list(username=usr, password=pwd))
 
 #' @title Patch self user info
