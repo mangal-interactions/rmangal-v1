@@ -1,3 +1,7 @@
+rmangal 0.1.1
+=============
+* It is now possible to filter the results using mangalSearch
+
 rmangal 0.1.0
 =============
 * First complete release of the entirely usable package
