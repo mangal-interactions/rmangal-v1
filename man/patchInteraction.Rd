@@ -13,6 +13,13 @@ patchInteraction(api, data)
 Patch an interaction from the database
 }
 \details{
-Requires authentication
+Requires authentication.
+
+If \code{item_*} or \code{pop_*} are provided in
+\code{data}, it is not necessary to fill-in other top-level
+fields (\code{taxa_*} and \code{pop_*}). If they are not
+filled, they will be retrieved by the package (at the cost
+of a few additional queries, which might rapidly add-up for
+large datasets).
 }
 
