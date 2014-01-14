@@ -123,6 +123,6 @@ To get a sense of what each property mean, you simply need to call `whatIs(netdb
 With this information in hand, getting a full network with all taxa information is simply a matter of following each interaction down to the taxa level, and putting this together in a single object. It's easy, but tedious. The `toIgraph` function will take care of it automatically, and pull a network a an `igraph` object:
 
 ```{r, warning=FALSE, fig.cap="A visualisation of the network."}
-G <- toIgraph(netdb, 2)
-plot(G)
+#G <- toIgraph(netdb, 2)
+#plot(G)
 ```
