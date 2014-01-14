@@ -42,11 +42,10 @@ toIgraph <- function(api, id, level = 'taxa', ...)
 	elements <- getElements(api, id, level, ...)
 	edge_list <- elements$edges
 	vertices_df <- elements$vertices
-	edge_list <- edge_list[,c('from', 'to', 'taxa_from', 'taxa_to', 'ecotype')]
+	edge_list <- edge_list[,c('from', 'to', 'taxa_from', 'taxa_to', 'link_type')]
 	G <- graph.data.frame(edge_list, vertices=vertices_df)
 	return(G)
 }
-
 
 #' @title Export a network to cheddar
 #' @export
@@ -59,5 +58,6 @@ toIgraph <- function(api, id, level = 'taxa', ...)
 #' @param ... reserved for future options
 toCheddar <- function(api, id, level = 'taxa', ...)
 {
+	elements <- getElements(api, id, level, ...)
    stop("Coming soon")
 }

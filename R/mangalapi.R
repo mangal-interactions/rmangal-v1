@@ -9,7 +9,7 @@
 #' @param pwd The password
 mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd = NULL)
 {
-   if(str_sub(url, start=1) == '/') url <- str_sub(url, end=-2)
+   if(str_sub(url, start=-1) == '/') url <- str_sub(url, end=-2)
 	queryset <- httr::GET(paste(url, 'api', v, sep='/'))
 	if(http_status(queryset)$category == "success")
 	{
