@@ -61,7 +61,7 @@ Let's compare this output with a `taxa` object pulled from the database
 (we'll see each element of the data structure and how to access it just after):
 
 ```{r showtaxa}
-getTaxa(netdb, 9)
+getTaxa(netdb, 1)
 ```
 
 ## Describing nodes
@@ -107,7 +107,7 @@ head(ldply(listNetwork(netdb), summarize, id = id, name = name, n_int = length(i
 If we want to have a look at  the first network, we simply need to write
 
 ```{r getnetwork}
-(net1 <- getNetwork(netdb, 2))
+(net1 <- getNetwork(netdb, 1))
 ```
 
 And similarly, the content of the first interaction of this network is 
@@ -123,6 +123,6 @@ To get a sense of what each property mean, you simply need to call `whatIs(netdb
 With this information in hand, getting a full network with all taxa information is simply a matter of following each interaction down to the taxa level, and putting this together in a single object. It's easy, but tedious. The `toIgraph` function will take care of it automatically, and pull a network a an `igraph` object:
 
 ```{r, warning=FALSE, fig.cap="A visualisation of the network."}
-#G <- toIgraph(netdb, 2)
-#plot(G)
+G <- toIgraph(netdb, 1)
+plot(G)
 ```
