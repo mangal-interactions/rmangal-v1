@@ -30,6 +30,7 @@ addDataset <- function(api, data)
 	data$networks <- multi_resToURI(api, data$networks, 'network')
 	if(!is.null(data$papers)) data$papers <- multi_resToURI(api, data$papers, 'reference')
 	if(!is.null(data$data)) data$data <- multi_resToURI(api, data$data, 'reference')
+	if(!is.null(data$environment)) data$environment <- multi_resToURI(api, data$environment, 'environment')
 	mangalPost(api, 'dataset', data)
 }
 
@@ -48,5 +49,6 @@ patchDataset <- function(api, data)
 	data$networks <- multi_resToURI(api, data$networks, 'network')
 	if(!is.null(data$papers)) data$papers <- multi_resToURI(api, data$papers, 'reference')
 	if(!is.null(data$data)) data$data <- multi_resToURI(api, data$data, 'reference')
+	if(!is.null(data$environment)) data$environment <- multi_resToURI(api, data$environment, 'environment')
 	mangalPatch(api, 'dataset', data)
 }

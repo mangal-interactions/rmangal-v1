@@ -25,7 +25,11 @@ getTaxa <- function(api, id) mangalGet(api, 'taxa', id)
 #' 
 #' @param api a \code{\link{mangalapi}} object
 #' @param data the taxa in list format
-addTaxa <- function(api, data) mangalPost(api, 'taxa', data)
+addTaxa <- function(api, data)
+{
+	if(!is.null(data$traits)) data$traits <- multi_resToURI(api, data$traits, 'trait')
+	mangalPost(api, 'taxa', data)
+}
 
 #' @title Patch a taxa
 #' @export
@@ -37,4 +41,10 @@ addTaxa <- function(api, data) mangalPost(api, 'taxa', data)
 #' 
 #' @param api a \code{\link{mangalapi}} object
 #' @param data the taxa in list format
-patchTaxa <- function(api, data) mangalPatch(api, 'taxa', data)
+patchTaxa <- function(api, data)
+{
+{
+	if(!is.null(data$traits)) data$traits <- multi_resToURI(api, data$traits, 'trait')
+	mangalPost(api, 'taxa', data)
+}
+}

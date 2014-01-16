@@ -4,7 +4,7 @@
 #' 
 #' @param api a \code{\link{mangalapi}} object
 #' @param id the id of the network
-#' @param level the level of aggregation
+#' @param level the level at which to aggregate data
 #' @param ... reserved for future options
 getElements <- function(api, id, level = 'taxa', ...)
 {
