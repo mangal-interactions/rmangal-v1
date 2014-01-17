@@ -1,3 +1,42 @@
+#' @title Format a trait or environment
+#' @param rec the result from a getTrait or getEnvironment query
+formatTraitEnv <- function(rec)
+{
+	name <- str_c(strsplit(rec$name, ' ')[[1]],collapse='_')
+	rec <- rec[!names(rec) %in% c('name','owner')]
+	names(rec) <- str_c(name, '__', names(rec))
+	return(rec)
+}
+
+#' @title Transforms a taxa to a vector
+#' 
+#' @param api a \code{\link{mangalapi}} object
+#' @param id a taxa id
+taxaToVector <- function(api, id)
+{
+	taxa <- getTaxa(api, id)
+	tav <- unlist(taxa[!names(taxa)=='traits'])
+	if(length(taxa$traits) > 0)
+	{
+		traits <- llply(taxa$traits, function(x) unlist(formatTraitEnv(getTrait(api, x))))
+		tav <- c(tav, unlist(traits))
+	}
+	return(tav)
+}
+
+#' @title Make a table with taxa level infos
+#' 
+#' @param api a \code{\link{mangalapi}} object
+#' @param id a vector of taxa id
+makeTaxaTable <- function(api, id)
+{
+	taxa <- alply(id, 1, function(x) taxaToVector(api, x))
+	all_columns <- unique(unlist(llply(taxa, names)))
+	taxa_table <- ldply(taxa, function(x) x[all_columns])[,-1]
+	colnames(taxa_table) <- all_columns
+	return(taxa_table)
+}
+
 #' @title Get aggregated informations on a network
 #' 
 #' @description Internal use
@@ -8,24 +47,23 @@
 #' @param ... reserved for future options
 getElements <- function(api, id, level = 'taxa', ...)
 {
-	metadata <- NULL
-	vertices_df <- NULL
-	edges_list <- NULL
+	Mdf <- NULL
+	Vdf <- NULL
+	Edf <- NULL
 	if(!(level %in% c('taxa', 'population', 'item'))) stop("Level must be one of taxa, population, item")
 	network <- getNetwork(api, id)
-	edge_list <- adply(network$interactions, 1, function(x) unlist(getInteraction(api, x)))
-	edge_list <- edge_list[,-1]
+	Edf <- adply(network$interactions, 1, function(x) unlist(getInteraction(api, x)))
+	Edf <- Edf[,-1]
 	if(level == 'taxa')
 	{
-		edge_list$from <- edge_list$taxa_from
-		edge_list$to <- edge_list$taxa_to
-		all_taxa <- unique(c(edge_list$to, edge_list$from))
-		vertices_list <- alply(all_taxa, 1, function(x) getTaxa(api, x))
-		vertices_df <- data.frame(laply(vertices_list, function(x) x))
-		attrnames <- colnames(vertices_df)
-		vertices_df <- vertices_df[,c('id', attrnames[!attrnames=='id'])]
+		Edf$from <- Edf$taxa_from
+		Edf$to <- Edf$taxa_to
+		all_taxa <- unique(c(Edf$to, Edf$from))
+		V_list <- alply(all_taxa, 1, function(x) getTaxa(api, x))
+		V_list <- laply(V_list, function(x) x$id)
+		Vdf <- makeTaxaTable(api, V_list)
 	}
-	return(list(vertices = vertices_df, edges = edge_list, metadata = metadata))
+	return(list(vertices = Vdf, edges = Edf, metadata = Mdf))
 }
 
 #' @title Export a network to igraph
