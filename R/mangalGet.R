@@ -9,7 +9,9 @@ mangalGet <- function(api, type, id = NULL)
 {
 	if(is.null(api[[type]]) | !("get" %in% api[[type]]$verbs)) stop(paste("This API do not implement the listing of ",type,sep=''))
 	if(is.null(id)) stop("You must provide an ID")
-	queryset <- httr::GET(paste(api[[type]]$url,id,'/',sep=''))
+	query_url <- str_c(api[[type]]$url,id,'/')
+	if(! is.null(api$auth)) query_url <- str_c(query_url,'?',api$auth)
+	queryset <- GET(query_url)
 	if(http_status(queryset)$category == "success")
 	{
 		fields <- content(queryset)

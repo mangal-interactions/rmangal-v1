@@ -6,19 +6,19 @@
 #' @param url The URL to the server
 #' @param v The API version
 #' @param usr The username
-#' @param pwd The password
-mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd = NULL)
+#' @param pwd The API key
+mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key = NULL)
 {
    if(str_sub(url, start=-1) == '/') url <- str_sub(url, end=-2)
 	queryset <- httr::GET(paste(url, 'api', v, sep='/'))
 	if(http_status(queryset)$category == "success")
 	{
 		methods <- list()
-      if(!(is.null(usr))&is.null(pwd)) warning("No password has been provided")
-      if(!(is.null(pwd))&is.null(usr)) warning("No username has been provided")
-      if(!(is.null(usr) & is.null(pwd)))
+      if(!(is.null(usr))&is.null(key)) warning("No password has been provided")
+      if(!(is.null(key))&is.null(usr)) warning("No API key has been provided")
+      if(!(is.null(usr) & is.null(key)))
       {
-      	methods$auth <- authenticate(usr, pwd, 'basic')
+      	methods$auth <- str_c('username=',usr,'&api_key=',key)
       	methods$usr <- usr
       }
 		methods$base <- url
@@ -28,11 +28,11 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, pwd =
 		for(res in methods$resources)
 		{
 			methods[[res]]$url <- paste(url,list_of_methods[[res]]$list_endpoint, sep='')
-         methods[[res]]$verbs <- content(httr::GET(paste(url, list_of_methods[[res]]$schema, sep='')))$allowed_list_http_methods
+         methods[[res]]$verbs <- content(GET(paste(url, list_of_methods[[res]]$schema, sep='')))$allowed_list_http_methods
 		}
-		if(!(is.null(usr) & is.null(pwd)))
+		if(!(is.null(methods$auth)))
 		{
-			us <- content(httr::GET(paste(methods$user$url,'?username=',methods$usr,sep='')))$objects[[1]]
+			us <- content(GET(str_c(methods$user$url,'?username__exact=',methods$usr,'&',methods$auth)))$objects[[1]]
 			methods$me <- resToURI(methods, us, 'user')
 		}
 		return(methods)

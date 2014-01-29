@@ -1,3 +1,8 @@
+rmangal 0.2.0
+=============
+* Now uses API keys instead of usr/password
+* `signUp` deprecated, login now needs to be done at http://mangal.uqar.ca/dashboard/
+
 rmangal 0.1.1
 =============
 * It is now possible to filter the results using mangalSearch

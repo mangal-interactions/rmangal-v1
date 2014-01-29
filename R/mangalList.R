@@ -7,6 +7,7 @@
 mangalList <- function(api, type, filtering=NULL)
 {
 	if(is.null(api[[type]]) | !("get" %in% api[[type]]$verbs)) stop(paste("This API do not implement the listing of ",type,sep=''))
-   query_url <- ifelse(is.null(filtering), api[[type]]$url, str_c(api[[type]]$url,'?',filtering))
+	query_url <- str_c(api[[type]]$url, '?', api$auth)
+   query_url <- ifelse(is.null(filtering), query_url, str_c(query_url,'&',filtering))
 	return(pagerResources(api, GET(query_url)))
 }

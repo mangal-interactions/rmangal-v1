@@ -7,11 +7,11 @@
 #' @param data the object in list form
 mangalPost <- function(api, type, data)
 {
-	if(!type == 'user') if(is.null(api$auth)) stop("You must be authenticated to post")
+	if(is.null(api$auth)) stop("You must be authenticated to post")
    if(is.null(data)) stop("Please provide data to add to the database")
    if(is.null(api[[type]]) | !("post" %in% api[[type]]$verbs)) stop(paste("This API do not permit POSTing objects of type ",type,sep=''))
 	if(!type == 'user') data$owner <- whoAmI(api)
-	queryset <- httr::POST(api[[type]]$url, body = toJSON(data), add_headers("Content-type" = "application/json"), api$auth)
+	queryset <- POST(str_c(api[[type]]$url, '?', api$auth), body = toJSON(data), add_headers("Content-type" = "application/json"))
 	if(http_status(queryset)$category == "success")
 	{
 		new_entry <- content(queryset)
