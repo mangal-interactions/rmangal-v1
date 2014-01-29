@@ -10,7 +10,7 @@
 mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key = NULL)
 {
    if(str_sub(url, start=-1) == '/') url <- str_sub(url, end=-2)
-	queryset <- httr::GET(paste(url, 'api', v, sep='/'))
+	queryset <- GET(paste(url, 'api', v, sep='/'))
 	if(http_status(queryset)$category == "success")
 	{
 		methods <- list()

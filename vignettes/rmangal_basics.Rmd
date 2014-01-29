@@ -61,7 +61,8 @@ Let's compare this output with a `taxa` object pulled from the database
 (we'll see each element of the data structure and how to access it just after):
 
 ```{r showtaxa}
-getTaxa(netdb, 1)
+taxas = listTaxa(netdb)
+getTaxa(netdb, taxas[[1]]$id)
 ```
 
 ## Describing nodes

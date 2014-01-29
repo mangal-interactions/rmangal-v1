@@ -9,7 +9,7 @@ getElements(api, id, level = "taxa", ...)
 
   \item{id}{the id of the network}
 
-  \item{level}{the level of aggregation}
+  \item{level}{the level at which to aggregate data}
 
   \item{...}{reserved for future options}
 }
