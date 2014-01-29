@@ -2,6 +2,13 @@
 #' @export
 #' 
 #' @description Initialise a mangal API obect, with direct reference to the resources
+#' 
+#' @details
+#' 
+#' This function establishes a connection to the mangal API located at the given url.
+#' If the author has an username / API key pair, it can be stated here. Note that if this
+#' information is in the `mangal_usr` and `mangal_key` options, it will be filled
+#' \textbf{unless} a usr and key are supplied.
 #'
 #' @param url The URL to the server
 #' @param v The API version
@@ -14,6 +21,8 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key =
 	if(http_status(queryset)$category == "success")
 	{
 		methods <- list()
+		if(is.null(usr)) usr <- options()$mangal_usr
+		if(is.null(key)) key <- options()$mangal_key
       if(!(is.null(usr))&is.null(key)) warning("No password has been provided")
       if(!(is.null(key))&is.null(usr)) warning("No API key has been provided")
       if(!(is.null(usr) & is.null(key)))
