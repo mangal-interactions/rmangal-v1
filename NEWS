@@ -1,3 +1,7 @@
+rmangal 0.2.1
+=============
+* Bug fix due to changes in how json objects are rendered by the parser
+
 rmangal 0.2.0
 =============
 * Now uses API keys instead of usr/password
