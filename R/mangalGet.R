@@ -15,6 +15,11 @@ mangalGet <- function(api, type, id = NULL)
 	if(http_status(queryset)$category == "success")
 	{
 		fields <- content(queryset)
+      # This was NOT needed before...
+      for(f in names(fields))
+      {
+         if(is.list(fields[[f]])) fields[[f]] <- unlist(fields[[f]])
+      }
 		return(fields)
 	} else {
 		stop(http_status(queryset)$message)
