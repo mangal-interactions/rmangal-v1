@@ -1,6 +1,8 @@
 \name{mangalPatch}
 \alias{mangalPatch}
-\title{Patch an object}
+\title{Patch an object
+
+Patch an existing object}
 \usage{
 mangalPatch(api, type, data)
 }
@@ -12,6 +14,8 @@ mangalPatch(api, type, data)
   \item{data}{the object in list form}
 }
 \description{
+Patch an object
+
 Patch an existing object
 }
 

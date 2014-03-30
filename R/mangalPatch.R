@@ -1,4 +1,4 @@
-#' Patch an object
+#' @title Patch an object
 #'
 #' Patch an existing object
 #'

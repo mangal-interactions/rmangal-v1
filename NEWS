@@ -1,3 +1,7 @@
+rmangal 0.3.0
+=============
+* Added functions to release a dataset (and all objects attached to it)
+
 rmangal 0.2.1
 =============
 * Bug fix due to changes in how json objects are rendered by the parser

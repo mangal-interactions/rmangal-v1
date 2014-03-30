@@ -1,0 +1,19 @@
+\name{releaseDataset}
+\alias{releaseDataset}
+\title{Release a dataset}
+\usage{
+releaseDataset(api, id, force = FALSE)
+}
+\arguments{
+  \item{api}{a \code{\link{mangalapi}} object}
+
+  \item{id}{the id of the dataset to release}
+
+  \item{force}{whether to force release even if the dataset
+  is already public}
+}
+\description{
+Releases a dataset, and all objects of lower level
+(networks and interactions).
+}
+
