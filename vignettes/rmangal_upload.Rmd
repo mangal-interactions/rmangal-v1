@@ -9,31 +9,49 @@ library(rmangal)
 
 # Contributing data through R
 
-The goal of this vignette is to present the protocol to *upload* data into the `mangal` database. By default, the `rmangal` package works with the database from the *Université du Québec à Rimouski*, in which data are publicly available under the *Creative Commons 0 waiver*.
+The goal of this vignette is to present the protocol to *upload* data into the
+`mangal` database. By default, the `rmangal` package works with the database
+from the *Université du Québec à Rimouski*, in which data are publicly
+available under the *Creative Commons 0 waiver*.
 
-If you do not have an identifier, the first thing is to create one:
+If you do not have an identifier, the first thing is to create one. This can
+be done on line at `http://mangal.uqar.ca/dashboard/login/`. Once registered,
+you will be given an *API key*. The recommended way to go from here is to
+put this information in the `.Rprofile` file. The login function will either
+take values passed as its `usr` and `key` arguments, or look for pre-set
+`mangal_usr` and `mangal_key` values in the `.Rprofile`. For the rest of the
+vignette, we will assume that you have stored your username and key in the
+`.Rprofile` (and re-started your `R` session).
 
-```{r signUp, eval=FALSE}
-me <- signUp(mangalapi(), 'my_username', 'my_password')
-# Let's add some informations
-me$first_name <- 'My first name'
-me$last_name <- 'My last name'
-me$email <- 'my@email.edu'
-# We then connect using the new identifier
-api <- mangalapi(usr=me$username, pwd=me$password)
-# And finally, first thing first, let's update our contact info
-me <- patchUser(api, me)
+The next connection will automatically log you in:
+
+```{r connect, eval=FALSE}
+api <- mangalapi()
 ```
 
-You only need to sign-up once. You can start your future sessions with
+If you have *private* data, they will now appear in the output of `list`
+and `get` commands.
 
-```{r login, eval=FALSE}
-api <- mangalapi(usr='my_username',pwd='my_password')
-```
+# Upload walkthrough
 
-# The upload approach
+As explained in the vignette on the basics, querying information is best done
+from the top (`dataset` objects) to the bottom. The upload process follows the
+*inverse* progression: first create taxa, then interactions, then networks,
+then wrap them up in a dataset. It is important that you familiarize yourself
+with the complete data specification *before* uploading your data.
 
-As explained in the vignette on the basics, querying information is best done from the top (`dataset` objects) to the bottom. The upload process follows the *inverse* progression: first create taxa, then interactions, then networks, then wrap them up in a dataset.
+## Creating taxa and related objects
 
-## Creating taxa objects
+## Creating datasets and related objects
 
+## Releasing the dataset
+
+The data you upload are *by default* public, and released under a *CC-0*
+waiver. You can decide to make some of them private, simply by setting the
+field `private` to `FALSE` for objects that have such a field. As per the
+guidelines given on the website, you are expected not to treat the database
+as a private data repository, and we expect that all deposited data will be
+released in a reasonable amount of time. On your dashboard on the website,
+you can check the status of your datasets and networks.
+
+Releasing a dataset is done by calling a single function:
