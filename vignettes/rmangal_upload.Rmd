@@ -35,12 +35,43 @@ and `get` commands.
 # Upload walkthrough
 
 As explained in the vignette on the basics, querying information is best done
-from the top (`dataset` objects) to the bottom. The upload process follows the
-*inverse* progression: first create taxa, then interactions, then networks,
-then wrap them up in a dataset. It is important that you familiarize yourself
-with the complete data specification *before* uploading your data.
+from the top (`dataset` objects) to the bottom (`taxa`). The upload process
+follows the *inverse* progression: first create taxa, then interactions, then
+networks, then wrap them up in a dataset. It is important that you familiarize
+yourself with the complete data specification *before* uploading your data.
 
 ## Creating taxa and related objects
+
+**All** `mangal` objects are essentially `R` `lists`, with names corresponding
+to the fields. For example, we can define a `taxa` as
+
+```{r dummy_taxa}
+dipl_vu <- list(
+         name = 'Diplodus vulgaris',
+         vernacular = 'Common two-banded seabream',
+         status = 'confirmed',
+         gbif = 5210979
+      )
+```
+
+Keep in mind that the database *will* check that there are no duplicates of
+the object you try to register. You can either check before uploading data
+(it's possible to `patch` objects if you have additional informations),
+which is a *Good Thing*, or hope that nothing breaks and address duplicates
+if they arise (which, obviously, is a *Bad Thing*).
+
+Now this object can be uploaded in the database in the following way:
+
+```{r upload_dummy_taxa, eval = FALSE}
+dipl_vu <- addTaxa(api, dipl_vu)
+```
+
+By default, the functions to `add` *any* object will return a `list` with the
+object queried from the database. This is essentially your object with the
+field values you supplied **and** the `id`. For this reason, it is acceptable
+(we actually recommend it) that you *overwrite* the original object with the
+version actually in the database. Without going into details, it will speed
+things up internally, and make the whole upload process more error-proof.
 
 ## Creating datasets and related objects
 
