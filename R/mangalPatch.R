@@ -14,7 +14,7 @@ mangalPatch <- function(api, type, data)
 	if(!type == 'user') data$owner <- api$me
 	qURL <- paste(api[[type]]$url, data$id, sep='')
 	if(!(str_sub(qURL,-1)=='/')) qURL <- paste(qURL,'/',sep='')
-	queryset <- PATCH(str_c(qURL, '?', api$auth), body = toJSON(data), add_headers("Content-type" = "application/json"), api$auth)
+	queryset <- PATCH(str_c(qURL, '?', api$auth), body = toJSON(data, auto_unbox=TRUE), add_headers("Content-type" = "application/json"), api$auth)
 	if(http_status(queryset)$category == "success")
 	{
 		new_entry <- content(queryset)

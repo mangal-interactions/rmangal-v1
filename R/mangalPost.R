@@ -11,7 +11,7 @@ mangalPost <- function(api, type, data)
   if(is.null(data)) stop("Please provide data to add to the database")
   if(is.null(api[[type]]) | !("post" %in% api[[type]]$verbs)) stop(paste("This API do not permit POSTing objects of type ",type,sep=''))
 	if(!type == 'user') data$owner <- api$me
-	queryset <- POST(str_c(api[[type]]$url, '?', api$auth), body = toJSON(data), add_headers("Content-type" = "application/json"))
+	queryset <- POST(str_c(api[[type]]$url, '?', api$auth), body = toJSON(data, auto_unbox=TRUE), add_headers("Content-type" = "application/json"))
 	if(http_status(queryset)$category == "success")
 	{
 		new_entry <- content(queryset)
