@@ -6,7 +6,7 @@ Author: Tim Poisot <t.poisot@gmail.com>
 Maintainer: Tim Poisot <t.poisot@gmail.com>
 Depends:
     R (>= 3.0.0),
-    jsonlite,
+    rjson,
     httr,
     plyr,
     igraph,
