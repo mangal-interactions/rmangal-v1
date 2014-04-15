@@ -16,7 +16,7 @@ Suggests:
     knitr
 Description: This packages offers R functions to interact with the mangal API,
     to retrieve and format data on species interaction networks.
-#VignetteBuilder: knitr
+VignetteBuilder: knitr
 License: BSD_2_clause
 URL: https://github.com/tpoisot/rmangal
 BugReports: https: //github.com/tpoisot/rmangal/issues
