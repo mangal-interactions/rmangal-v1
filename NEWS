@@ -1,3 +1,9 @@
+rmangal 0.3.1
+=============
+* fixed bugs introduced by the switch from rjson to jsonlite in httr without breaking backwards compatibility
+* optimized the patch and post function to decrease the number of API calls (we already have the URI of the requester)
+* removed the internal function to get a list of resources, this is done directly by reading the API root
+
 rmangal 0.3.0
 =============
 * Added functions to release a dataset (and all objects attached to it)
