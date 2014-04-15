@@ -37,7 +37,7 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key =
 		for(res in methods$resources)
 		{
 			methods[[res]]$url <- paste(url,list_of_methods[[res]]$list_endpoint, sep='')
-         methods[[res]]$verbs <- content(GET(paste(url, list_of_methods[[res]]$schema, sep='')))$allowed_list_http_methods
+      methods[[res]]$verbs <- content(GET(paste(url, list_of_methods[[res]]$schema, sep='')))$allowed_list_http_methods
 		}
 		if(!(is.null(methods$auth)))
 		{
@@ -61,9 +61,9 @@ resToURI <- function(api, obj, type)
 {
 	if(is.list(obj))
 	{
-		return(paste(api$trail, '/', type, '/', obj$id, '/', sep=''))
+		return(str_c(api$trail, '/', type, '/', obj$id, '/'))
 	} else {
-		return(paste(api$trail, '/', type, '/', obj, '/', sep=''))
+		return(str_c(api$trail, '/', type, '/', obj, '/'))
 	}
 }
 
@@ -101,14 +101,6 @@ whoAmI <- function(api)
 	if(is.null(api$auth)) stop("You must be logged in")
 	return(api$me)
 }
-
-#' @title List the available resources
-#' @export
-#' 
-#' @description Gives an array with the available resources
-#' 
-#' @param api a \code{\link{mangalapi}} object
-availableResources <- function(api) names(api)
 
 #' @title How should objects be formatted
 #' @export

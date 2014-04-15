@@ -11,10 +11,10 @@ mangalPatch <- function(api, type, data)
 	if(is.null(data)) stop("Please provide data to patch the database")
 	if(is.null(data$id)) stop("The ID field must be present to patch")
 	if(is.null(api[[type]]) | !("patch" %in% api[[type]]$verbs)) stop(paste("This API do not permit PATCHing objects of type ",type,sep=''))
-	if(!type == 'user') data$owner <- whoAmI(api)
+	if(!type == 'user') data$owner <- api$me
 	qURL <- paste(api[[type]]$url, data$id, sep='')
 	if(!(str_sub(qURL,-1)=='/')) qURL <- paste(qURL,'/',sep='')
-	queryset <- PATCH(str_c(qURL, '?', api$auth), body = rjson::toJSON(data), add_headers("Content-type" = "application/json"), api$auth)
+	queryset <- PATCH(str_c(qURL, '?', api$auth), body = toJSON(data), add_headers("Content-type" = "application/json"), api$auth)
 	if(http_status(queryset)$category == "success")
 	{
 		new_entry <- content(queryset)
