@@ -14,7 +14,8 @@ mangalPatch <- function(api, type, data)
 	if(!type == 'user') data$owner <- api$me
 	qURL <- paste(api[[type]]$url, data$id, sep='')
 	if(!(str_sub(qURL,-1)=='/')) qURL <- paste(qURL,'/',sep='')
-  print(qURL)
+  # We need to get rid of everything NULL, or else jsonlite will screw it up
+  data[names(data)[laply(data, length)==0]] <- NULL
 	queryset <- PATCH(str_c(qURL, '?', api$auth), body = toJSON(data, auto_unbox=TRUE), add_headers("Content-type" = "application/json"))
 	if(http_status(queryset)$category == "success")
 	{
