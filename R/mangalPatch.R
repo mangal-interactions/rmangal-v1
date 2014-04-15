@@ -10,7 +10,7 @@ mangalPatch <- function(api, type, data)
 	if(is.null(api$auth)) stop("You must be authenticated to patch")
 	if(is.null(data)) stop("Please provide data to patch the database")
 	if(is.null(data$id)) stop("The ID field must be present to patch")
-	if(is.null(api[[type]]) | !("patch" %in% api[[type]]$verbs)) stop(paste("This API do not permit PATCHing objects of type ",type,sep=''))
+	if(is.null(api[[type]]) | !("patch" %in% api[[type]]$verbs)) stop(str_c("This API do not permit PATCHing objects of type ",type))
 	if(!type == 'user') data$owner <- api$me
 	qURL <- paste(api[[type]]$url, data$id, sep='')
 	if(!(str_sub(qURL,-1)=='/')) qURL <- paste(qURL,'/',sep='')
