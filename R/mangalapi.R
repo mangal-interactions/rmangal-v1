@@ -85,7 +85,7 @@ multi_resToURI <- function(api, obj, type)
 	}
 	if(is.list(obj))
 	{
-		data$networks <- laply(obj, function(x) resToURI(api, x, type))
+		obj <- laply(obj, function(x) resToURI(api, x, type))
 		return(obj)
 	}
 	stop("The resource you try to convert must be a vector or list")
