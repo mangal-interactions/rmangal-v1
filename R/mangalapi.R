@@ -112,7 +112,7 @@ whoAmI <- function(api)
 #' @param ... researved for future use (export as JSON schemes)
 whatIs <- function(api, type, ...)
 {
-	if(!(type %in% availableResources(api))) stop(paste("This API do not implement objects of type ",type,'. See ?availableResources for more.',sep=''))
+	if(!(type %in% api$resources)) stop(str_c("This API do not implement objects of type ",type,'. See ', deparse(substitute(api)),'$resources for more.'))
 	schema <- paste(api[[type]]$url,'schema',sep='')
 	type_spec <- content(httr::GET(schema))
 	# Print a data.frame with the fields
