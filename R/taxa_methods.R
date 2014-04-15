@@ -43,8 +43,6 @@ addTaxa <- function(api, data)
 #' @param data the taxa in list format
 patchTaxa <- function(api, data)
 {
-{
 	if(!is.null(data$traits)) data$traits <- multi_resToURI(api, data$traits, 'trait')
-	mangalPost(api, 'taxa', data)
-}
+	mangalPatch(api, 'taxa', data)
 }
