@@ -8,6 +8,9 @@ mangalList(api, type, filtering = NULL)
   \item{api}{a \code{\link{mangalapi}} object}
 
   \item{type}{a type of object}
+
+  \item{filtering}{filters to restrict the returned
+  objects}
 }
 \description{
 Returns a list of objects of a given type

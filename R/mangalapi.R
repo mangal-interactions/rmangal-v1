@@ -114,9 +114,9 @@ whatIs <- function(api, type, ...)
 {
 	if(!(type %in% api$resources)) stop(str_c("This API do not implement objects of type ",type,'. See ', deparse(substitute(api)),'$resources for more.'))
 	schema <- str_c(api[[type]]$url,'schema')
-	type_spec <- content(httr::GET(schema))
+	type_spec <- content(GET(schema))
 	# Print a data.frame with the fields
-	spec <- ldply(type_spec$fields, summarize, help = help_text, type = type, null = as.character(nullable), unique = unique, values = ifelse(exists('choices'), str_c(choices, collapse=', ') , ''))
+	spec <- ldply(type_spec$fields, summarize, help = help_text, type = type, null = as.character(nullable), unique = unique, values = ifelse(exists('choices'), str_c(unlist(choices), collapse=', ') , ''))
 	colnames(spec)[1] = 'field'
 	# Remove owner, public and id
 	spec = subset(spec, !(field %in% c('owner', 'id', 'public')))
