@@ -7,7 +7,7 @@
 #' @param id the ID of the object
 mangalGet <- function(api, type, id = NULL)
 {
-	if(is.null(api[[type]]) | !("get" %in% api[[type]]$verbs)) stop(paste("This API do not implement the listing of ",type,sep=''))
+	if(is.null(api[[type]]) | !("get" %in% api[[type]]$verbs)) stop(str_c("This API do not implement the listing of ",type))
 	if(is.null(id)) stop("You must provide an ID")
 	query_url <- str_c(api[[type]]$url,id,'/')
 	if(! is.null(api$auth)) query_url <- str_c(query_url,'?',api$auth)

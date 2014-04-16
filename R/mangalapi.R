@@ -17,7 +17,7 @@
 mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key = NULL)
 {
    if(str_sub(url, start=-1) == '/') url <- str_sub(url, end=-2)
-	queryset <- GET(paste(url, 'api', v, sep='/'))
+	queryset <- GET(str_c(url, 'api', v, sep='/'))
 	if(http_status(queryset)$category == "success")
 	{
 		methods <- list()
@@ -31,13 +31,13 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key =
       	methods$usr <- usr
       }
 		methods$base <- url
-		methods$trail <- paste('/api', v, sep='/')
+		methods$trail <- str_c('/api', v, sep='/')
 		list_of_methods <- content(queryset)
 		methods$resources <- names(list_of_methods)
 		for(res in methods$resources)
 		{
-			methods[[res]]$url <- paste(url,list_of_methods[[res]]$list_endpoint, sep='')
-      methods[[res]]$verbs <- content(GET(paste(url, list_of_methods[[res]]$schema, sep='')))$allowed_list_http_methods
+			methods[[res]]$url <- str_c(url,list_of_methods[[res]]$list_endpoint)
+      methods[[res]]$verbs <- content(GET(str_c(url, list_of_methods[[res]]$schema)))$allowed_list_http_methods
 		}
 		if(!(is.null(methods$auth)))
 		{
@@ -113,10 +113,10 @@ whoAmI <- function(api)
 whatIs <- function(api, type, ...)
 {
 	if(!(type %in% api$resources)) stop(str_c("This API do not implement objects of type ",type,'. See ', deparse(substitute(api)),'$resources for more.'))
-	schema <- paste(api[[type]]$url,'schema',sep='')
+	schema <- str_c(api[[type]]$url,'schema')
 	type_spec <- content(httr::GET(schema))
 	# Print a data.frame with the fields
-	spec <- ldply(type_spec$fields, summarize, help = help_text, type = type, null = as.character(nullable), unique = unique, values = ifelse(exists('choices'), paste(choices, collapse=', ') , ''))
+	spec <- ldply(type_spec$fields, summarize, help = help_text, type = type, null = as.character(nullable), unique = unique, values = ifelse(exists('choices'), str_c(choices, collapse=', ') , ''))
 	colnames(spec)[1] = 'field'
 	# Remove owner, public and id
 	spec = subset(spec, !(field %in% c('owner', 'id', 'public')))

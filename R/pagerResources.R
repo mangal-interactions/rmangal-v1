@@ -14,7 +14,7 @@ pagerResources <- function(api, queryset)
 		while(!(is.null(fields$meta$`next`)))
 		{
 			resources <- c(resources, fields$objects)
-			fields <- content(GET(paste(api$base,fields$meta$`next`,sep='')))
+			fields <- content(GET(str_c(api$base,fields$meta$`next`)))
 		}
 		resources <- c(resources, fields$objects)
 		return(resources)

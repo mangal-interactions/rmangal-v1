@@ -1,6 +1,6 @@
 context("Test of the taxa methods")
 
-test_that("listTaxa abd getTaxa work as they should",{
+test_that("listTaxa and getTaxa work as they should",{
           api <- mangalapi()
           list_taxa <- listTaxa(api)
           expect_is(list_taxa, "list")
