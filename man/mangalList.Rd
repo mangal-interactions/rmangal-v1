@@ -9,8 +9,8 @@ mangalList(api, type, filtering = NULL)
 
   \item{type}{a type of object}
 
-  \item{filtering}{filters to restrict the returned
-  objects}
+  \item{filtering}{a vector of filters to restrict the
+  returned objects}
 }
 \description{
 Returns a list of objects of a given type

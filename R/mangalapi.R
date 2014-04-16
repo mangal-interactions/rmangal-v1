@@ -21,13 +21,17 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key =
 	if(http_status(queryset)$category == "success")
 	{
 		methods <- list()
+      methods$args <- list(client = 'rmangal') # Additional URL parameters
+      methods$auth <- FALSE
 		if(is.null(usr)) usr <- options()$mangal_usr
 		if(is.null(key)) key <- options()$mangal_key
       if(!(is.null(usr))&is.null(key)) warning("No password has been provided")
       if(!(is.null(key))&is.null(usr)) warning("No API key has been provided")
       if(!(is.null(usr) & is.null(key)))
       {
-      	methods$auth <- str_c('username=',usr,'&api_key=',key)
+         methods$args$username <- usr
+         methods$args$api_key <- key
+      	methods$auth <- TRUE
       	methods$usr <- usr
       }
 		methods$base <- url
@@ -37,17 +41,24 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key =
 		for(res in methods$resources)
 		{
 			methods[[res]]$url <- str_c(url,list_of_methods[[res]]$list_endpoint)
-      methods[[res]]$verbs <- content(GET(str_c(url, list_of_methods[[res]]$schema)))$allowed_list_http_methods
+         methods[[res]]$verbs <- content(GET(str_c(url, list_of_methods[[res]]$schema)))$allowed_list_http_methods
 		}
 		if(!(is.null(methods$auth)))
 		{
-			us <- content(GET(str_c(methods$user$url,'?username__exact=',methods$usr,'&',methods$auth)))$objects[[1]]
+			us <- content(GET(str_c(methods$user$url, render_parameters(methods, suppl=list('username__exact' = methods$usr)))))$objects[[1]]
 			methods$me <- resToURI(methods, us, 'user')
 		}
 		return(methods)
 	} else {
 		stop(http_status(queryset)$message)
 	}
+}
+
+#' @title Render url additiona key/value pairs
+render_parameters <- function(api, suppl=NULL)
+{
+   full_args <- c(api$args, suppl)
+   return(str_c('?',str_c(names(full_args), unlist(full_args), sep='=', collapse='&')))
 }
 
 #' @title Convert resource or ID to URI
@@ -61,9 +72,9 @@ resToURI <- function(api, obj, type)
 {
 	if(is.list(obj))
 	{
-		return(str_c(api$trail, '/', type, '/', obj$id, '/'))
+    return(str_c(api$trail, '/', type, '/', obj$id, '/'))
 	} else {
-		return(str_c(api$trail, '/', type, '/', obj, '/'))
+    return(str_c(api$trail, '/', type, '/', obj, '/'))
 	}
 }
 

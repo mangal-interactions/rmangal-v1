@@ -4,7 +4,8 @@
 #' @description Returns a list of populations
 #'
 #' @param api a \code{\link{mangalapi}} object
-listPopulation <- function(api) mangalList(api, 'population')
+#' @param ... additional parameters (filters) to be passed to \code{\link{mangalList}}
+listPopulation <- function(api, ...) mangalList(api, 'population', ...)
 
 #' @title Get a population
 #' @export

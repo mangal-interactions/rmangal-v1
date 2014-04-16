@@ -4,7 +4,8 @@
 #' @description Returns a list of environments
 #'
 #' @param api a \code{\link{mangalapi}} object
-listEnvironment <- function(api) mangalList(api, 'environment')
+#' @param ... additional parameters (filters) to be passed to \code{\link{mangalList}}
+listEnvironment <- function(api, ...) mangalList(api, 'environment', ...)
 
 #' @title Get an environmental measure
 #' @export

@@ -1,3 +1,8 @@
+rmangal 0.4.0
+=============
+* internal changes to the gestion of URL parameters
+* filtering is now done within the `list***` functions rather than with a special function
+
 rmangal 0.3.1
 =============
 * fixed bugs introduced by the switch from rjson to jsonlite in httr without breaking backwards compatibility

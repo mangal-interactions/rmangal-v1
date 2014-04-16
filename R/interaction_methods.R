@@ -4,7 +4,8 @@
 #' @description Returns a list of interactions
 #'
 #' @param api a \code{\link{mangalapi}} object
-listInteraction <- function(api) mangalList(api, 'interaction')
+#' @param ... additional parameters (filters) to be passed to \code{\link{mangalList}}
+listInteraction <- function(api, ...) mangalList(api, 'interaction', ...)
 
 #' @title Get a particular interaction
 #' @export

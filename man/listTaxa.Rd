@@ -2,10 +2,13 @@
 \alias{listTaxa}
 \title{List the taxa currently in the DB}
 \usage{
-listTaxa(api)
+listTaxa(api, ...)
 }
 \arguments{
   \item{api}{a \code{\link{mangalapi}} object}
+
+  \item{...}{additional parameters (filters) to be passed
+  to \code{\link{mangalList}}}
 }
 \description{
 Returns a list of taxa

@@ -4,7 +4,8 @@
 #' @description Returns a list of taxa
 #'
 #' @param api a \code{\link{mangalapi}} object
-listTaxa <- function(api) mangalList(api, 'taxa')
+#' @param ... additional parameters (filters) to be passed to \code{\link{mangalList}}
+listTaxa <- function(api, ...) mangalList(api, 'taxa', ...)
 
 #' @title Get a particular taxa
 #' @export

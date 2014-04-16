@@ -4,7 +4,8 @@
 #' @description Returns a list of traits
 #'
 #' @param api a \code{\link{mangalapi}} object
-listTrait <- function(api) mangalList(api, 'trait')
+#' @param ... additional parameters (filters) to be passed to \code{\link{mangalList}}
+listTrait <- function(api, ...) mangalList(api, 'trait', ...)
 
 #' @title Get an traital measure
 #' @export

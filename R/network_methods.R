@@ -4,7 +4,8 @@
 #' @description Returns a list of networks
 #'
 #' @param api a \code{\link{mangalapi}} object
-listNetwork <- function(api) mangalList(api, 'network')
+#' @param ... additional parameters (filters) to be passed to \code{\link{mangalList}}
+listNetwork <- function(api, ...) mangalList(api, 'network', ...)
 
 #' @title Get a particular network
 #' @export

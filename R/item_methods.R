@@ -4,7 +4,8 @@
 #' @description Returns a list of items
 #'
 #' @param api a \code{\link{mangalapi}} object
-listItem <- function(api) mangalList(api, 'item')
+#' @param ... additional parameters (filters) to be passed to \code{\link{mangalList}}
+listItem <- function(api, ...) mangalList(api, 'item', ...)
 
 #' @title Get an item
 #' @export
