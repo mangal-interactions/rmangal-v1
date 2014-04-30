@@ -1,5 +1,5 @@
 Package: rmangal
-Version: 0.4.0
+Version: 0.4.1
 Date: 2014-04-16
 Title: R interface to the mangal database of ecological networks
 Author: Tim Poisot <t.poisot@gmail.com>
