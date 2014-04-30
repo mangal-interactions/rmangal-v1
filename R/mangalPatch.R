@@ -30,14 +30,15 @@ mangalPatch <- function(api, type, data)
 #' @title Get the URI of a user from its username
 #'
 #' @param api a \code{\link{mangalapi}} object
-#' @param username a username
-uri_from_uname <- function(api, username)
+#' @param uname a username
+#' @export
+uri_from_uname <- function(api, uname)
 {
-   filter <- str_c('username__exact=', username)
+   filter <- str_c('username__exact=', uname)
    matches <- mangalList(api, 'user', filtering=filter)
    if (length(matches) == 0)
    {
-      stop(str_c(username, " is not a valid username"))
+      stop(str_c(uname, " is not a valid username"))
    }
    return(resToURI(api, matches[[1]], 'user'))
 }
