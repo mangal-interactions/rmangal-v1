@@ -19,4 +19,4 @@ Description: This packages offers R functions to interact with the mangal API,
 VignetteBuilder: knitr
 License: BSD_2_clause
 URL: https://github.com/tpoisot/rmangal
-BugReports: https: //github.com/tpoisot/rmangal/issues
+BugReports: https://github.com/tpoisot/rmangal/issues
