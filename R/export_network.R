@@ -34,6 +34,14 @@ makeTaxaTable <- function(api, id)
 	all_columns <- unique(unlist(llply(taxa, names)))
 	taxa_table <- ldply(taxa, function(x) x[all_columns])[,-1]
 	colnames(taxa_table) <- all_columns
+   id_pos <- which(colnames(taxa_table)=='id')
+   if(id_pos != 1)
+   {
+      n_1 <- taxa_table[,1]
+      taxa_table[,1] <- taxa_table[,id_pos]
+      taxa_table[,id_pos] <- n_1
+      colnames(taxa_table)[c(1, id_pos)] <- colnames(taxa_table)[c(id_pos, 1)]
+   }
 	return(taxa_table)
 }
 
