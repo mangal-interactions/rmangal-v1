@@ -1,4 +1,9 @@
 #' @title Release a resource
+#' 
+#' @param api a \code{\link{mangalapi}} object
+#' @param type the type of object to release
+#' @param id the id of the dataset to release
+#'
 #' @description 
 #' This function is used internally to release a resource. It do not returns
 #' anything, but throws a warning if there is no public field to update.
@@ -7,7 +12,7 @@ releaseResource <- function(api, type, id)
    resource <- mangalGet(api, type, id)
    if(is.null(resource$public))
    {
-      warning(str_c("The resource ", type, '/', id, " has no public field"))
+      warning(stringr::str_c("The resource ", type, '/', id, " has no public field"))
    } else {
       resource$public <- TRUE
       mangalPatch(api, type, resource)

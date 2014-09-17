@@ -7,18 +7,18 @@
 pagerResources <- function(api, queryset)
 {
 	resources <- NULL
-	if(http_status(queryset)$category == "success")
+	if(httr::http_status(queryset)$category == "success")
 	{
-		fields <- content(queryset)
-		cat(str_c(fields$meta$total_count,' object(s) found\n'))
+		fields <- httr::content(queryset)
+		cat(stringr::str_c(fields$meta$total_count,' object(s) found\n'))
 		while(!(is.null(fields$meta$`next`)))
 		{
 			resources <- c(resources, fields$objects)
-			fields <- content(GET(str_c(api$base,fields$meta$`next`)))
+			fields <- httr::content(httr::GET(stringr::str_c(api$base,fields$meta$`next`)))
 		}
 		resources <- c(resources, fields$objects)
 		return(resources)
 	} else {
-		stop(http_status(queryset)$message)
+		stop(httr::http_status(queryset)$message)
 	}
 }

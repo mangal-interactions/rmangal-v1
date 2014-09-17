@@ -20,13 +20,13 @@ makefilter <- function(api, type, filter)
 {
    f_filt <- list()
    if(!prod(names(filter) %in% c('field', 'relation', 'target'))) stop("The filter list must have names field, relation, target")
-   if(!filter$relation %in% c('contains', 'startswith', 'endswith', 'in', 'exact', 'gt', 'gte', 'lt', 'lte', 'range')) stop(str_c("This relation (",filter$relation,") do not exist"))
-   if(!(filter$field %in% whatIs(api, type)$field)) stop(str_c("Object of type ", type," have no field ", filter$field))
+   if(!filter$relation %in% c('contains', 'startswith', 'endswith', 'in', 'exact', 'gt', 'gte', 'lt', 'lte', 'range')) stop(stringr::str_c("This relation (",filter$relation,") do not exist"))
+   if(!(filter$field %in% whatIs(api, type)$field)) stop(stringr::str_c("Object of type ", type," have no field ", filter$field))
    if(filter$relation == 'range')
    {
    	if(length(filter$target) != 2) stop("The target should be a vector of two elements when searching a range")
-   	filter$target <- str_c(filter$target,collapse=',')
+   	filter$target <- stringr::str_c(filter$target,collapse=',')
    }
-   f_filt[[str_c(filter$field,'__',filter$relation)]] <- filter$target
+   f_filt[[stringr::str_c(filter$field,'__',filter$relation)]] <- filter$target
    return(f_filt)
 }
