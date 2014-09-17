@@ -56,7 +56,7 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key =
 
 #' @title Render url additional key/value pairs
 #' @param api a \code{\link{mangalapi}} object
-#' @param suppl the additional parameters
+#' @param suppl the additional parameters as a list (with names)
 render_parameters <- function(api, suppl=NULL)
 {
    full_args <- c(api$args, suppl)
