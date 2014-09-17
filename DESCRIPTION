@@ -1,18 +1,18 @@
 Package: rmangal
-Version: 0.4.0
-Date: 2015-08-13
+Version: 1.0.0
+Date: 2015-01-15
 Title: R interface to the mangal database of ecological networks
 Author: Tim Poisot <t.poisot@gmail.com>
 Maintainer: Tim Poisot <t.poisot@gmail.com>
 Depends:
    R (>= 3.0.0),
    igraph,
-   cheddar
+   cheddar,
+   stringr
 Imports:
    jsonlite,
    httr,
    plyr,
-   stringr
 Suggests:
     knitr
 Description: This packages offers R functions to interact with the mangal API, to retrieve and format data on species interaction networks.
