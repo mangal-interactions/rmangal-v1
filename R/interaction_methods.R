@@ -33,6 +33,8 @@ addInteraction <- function(api, data)
 	if(!is.null(data$taxa_from)) data$taxa_from <- resToURI(api, data$taxa_from, 'taxa')
 	if(!is.null(data$taxa_to)) data$taxa_to <- resToURI(api, data$taxa_to, 'taxa')
 	if(!is.null(data$environment)) data$environment <- multi_resToURI(api, data$environment, 'environment')
+	if(!is.null(data$paper)) data$paper <- multi_resToURI(api, data$paper, 'reference')
+	if(!is.null(data$data)) data$data <- multi_resToURI(api, data$data, 'reference')
 	# Auto-fill informations if only populations are given
 	if(!is.null(data$pop_from))
 	{
@@ -79,6 +81,8 @@ patchInteraction <- function(api, data)
 	if(!is.null(data$taxa_from)) data$taxa_from <- resToURI(api, data$taxa_from, 'taxa')
 	if(!is.null(data$taxa_to)) data$taxa_to <- resToURI(api, data$taxa_to, 'taxa')
 	if(!is.null(data$environment)) data$environment <- multi_resToURI(api, data$environment, 'environment')
+	if(!is.null(data$paper)) data$paper <- multi_resToURI(api, data$paper, 'reference')
+	if(!is.null(data$data)) data$data <- multi_resToURI(api, data$data, 'reference')
 	# Auto-fill informations if only populations are given
 	if(!is.null(data$pop_from))
 	{

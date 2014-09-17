@@ -38,6 +38,8 @@ getNetwork <- function(api, id)
 addNetwork <- function(api, data)
 {
 	data$interactions <- multi_resToURI(api, data$interactions, 'interaction')
+	if(!is.null(data$paper)) data$paper <- multi_resToURI(api, data$paper, 'reference')
+	if(!is.null(data$data)) data$data <- multi_resToURI(api, data$data, 'reference')
    if(!is.null(data$environment)) data$environment <- multi_resToURI(api, data$environment, 'environment')
 	mangalPost(api, 'network', data)
 }
@@ -55,6 +57,8 @@ addNetwork <- function(api, data)
 patchNetwork <- function(api, data)
 {
 	data$interactions <- multi_resToURI(api, data$interactions, 'interaction')
+	if(!is.null(data$paper)) data$paper <- multi_resToURI(api, data$paper, 'reference')
+	if(!is.null(data$data)) data$data <- multi_resToURI(api, data$data, 'reference')
    if(!is.null(data$environment)) data$environment <- multi_resToURI(api, data$environment, 'environment')
 	mangalPatch(api, 'network', data)
 }
