@@ -8,7 +8,7 @@ render_parameters(api, suppl = NULL)
 \arguments{
 \item{api}{a \code{\link{mangalapi}} object}
 
-\item{suppl}{the additional parameters}
+\item{suppl}{the additional parameters as a list (with names)}
 }
 \description{
 Render url additional key/value pairs
