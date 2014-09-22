@@ -27,6 +27,6 @@ makefilter <- function(api, type, filter)
    	if(length(filter$target) != 2) stop("The target should be a vector of two elements when searching a range")
    	filter$target <- stringr::str_c(filter$target,collapse=',')
    }
-   f_filt[[stringr::str_c(filter$field,'__',filter$relation)]] <- filter$target
+   f_filt[[stringr::str_c(filter$field,'__',filter$relation)]] <- URLencode(filter$target)
    return(f_filt)
 }
