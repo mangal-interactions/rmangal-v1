@@ -43,7 +43,7 @@ mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key =
 			methods[[res]]$url <- stringr::str_c(url,list_of_methods[[res]]$list_endpoint)
          methods[[res]]$verbs <- httr::content(httr::GET(stringr::str_c(url, list_of_methods[[res]]$schema)))$allowed_list_http_methods
 		}
-		if(!(is.null(methods$auth)))
+		if(!(methods$auth))
 		{
 			us <- httr::content(httr::GET(stringr::str_c(methods$user$url, render_parameters(methods, suppl=list('username__exact' = methods$usr)))))$objects[[1]]
 			methods$me <- resToURI(methods, us, 'user')
