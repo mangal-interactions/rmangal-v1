@@ -4,7 +4,8 @@
 #' @description Returns a list of items
 #'
 #' @param api a \code{\link{mangalapi}} object
-listItem <- function(api) mangalList(api, 'item')
+#' @param ... additional parameters (filters) to be passed to \code{\link{mangalList}}
+listItem <- function(api, ...) mangalList(api, 'item', ...)
 
 #' @title Get an item
 #' @export
@@ -27,7 +28,7 @@ getItem <- function(api, id) mangalGet(api, 'item', id)
 #' @param data the item in list format
 addItem <- function(api, data)
 {
-	data$population <- resToURI(api, data$population, 'population')
+	data$taxa <- resToURI(api, data$taxa, 'taxa')
 	if(!is.null(data$traits)) data$traits <- multi_resToURI(api, data$traits, 'trait')
 	mangalPost(api, 'item', data)
 }
@@ -44,7 +45,7 @@ addItem <- function(api, data)
 #' @param data the item in list format
 patchItem <- function(api, data)
 {
-	data$population <- resToURI(api, data$population, 'population')
+	data$taxa <- resToURI(api, data$taxa, 'taxa')
 	if(!is.null(data$traits)) data$traits <- multi_resToURI(api, data$traits, 'trait')
 	mangalPatch(api, 'item', data)
 }

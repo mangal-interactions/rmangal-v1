@@ -4,7 +4,8 @@
 #' @description Returns a list of interactions
 #'
 #' @param api a \code{\link{mangalapi}} object
-listInteraction <- function(api) mangalList(api, 'interaction')
+#' @param ... additional parameters (filters) to be passed to \code{\link{mangalList}}
+listInteraction <- function(api, ...) mangalList(api, 'interaction', ...)
 
 #' @title Get a particular interaction
 #' @export
@@ -32,30 +33,17 @@ addInteraction <- function(api, data)
 	if(!is.null(data$taxa_from)) data$taxa_from <- resToURI(api, data$taxa_from, 'taxa')
 	if(!is.null(data$taxa_to)) data$taxa_to <- resToURI(api, data$taxa_to, 'taxa')
 	if(!is.null(data$environment)) data$environment <- multi_resToURI(api, data$environment, 'environment')
-	# Auto-fill informations if only populations are given
-	if(!is.null(data$pop_from))
-	{
-		if(is.null(data$taxa_from)) data$taxa_from <- resToURI(api, pop_from$taxa, 'taxa')
-		data$pop_from <- resToURI(api, data$pop_from, 'population')
-	}
-	if(!is.null(data$pop_to))
-	{
-		if(is.null(data$taxa_to)) data$taxa_to <- resToURI(api, pop_to$taxa, 'taxa')
-		data$pop_to <- resToURI(api, data$pop_to, 'population')
-	}
+	if(!is.null(data$paper)) data$paper <- multi_resToURI(api, data$paper, 'reference')
+	if(!is.null(data$data)) data$data <- multi_resToURI(api, data$data, 'reference')
 	# Auto-fill informations if the items are given
 	if(!is.null(data$item_from))
 	{
-		if(is.null(data$pop_from) | is.null(data$taxa_from)) pop_from <- getPopulation(api, ifelse(is.list(data$item_from), data$item_from$id, data$item_from))
-		if(is.null(data$pop_from)) data$pop_from <- resToURI(api, pop_from$id, 'population')
-		if(is.null(data$taxa_from)) data$taxa_from <- resToURI(api, pop_from$taxa, 'taxa')
+		if(is.null(data$taxa_from)) data$taxa_from <- resToURI(api, data$taxa_from, 'taxa')
 		data$item_from <- resToURI(api, data$item_from, 'item')
 	}
 	if(!is.null(data$item_to))
 	{
-		if(is.null(data$pop_to) | is.null(data$taxa_to)) pop_to <- getPopulation(api, ifelse(is.list(data$item_to), data$item_to$id, data$item_to))
-		if(is.null(data$pop_to)) data$pop_to <- resToURI(api, pop_to$id, 'population')
-		if(is.null(data$taxa_to)) data$taxa_to <- resToURI(api, pop_to$taxa, 'taxa')
+		if(is.null(data$taxa_to)) data$taxa_to <- resToURI(api, data$taxa_to, 'taxa')
 		data$item_to <- resToURI(api, data$item_to, 'item')
 	}
 	mangalPost(api, 'interaction', data)
@@ -78,30 +66,17 @@ patchInteraction <- function(api, data)
 	if(!is.null(data$taxa_from)) data$taxa_from <- resToURI(api, data$taxa_from, 'taxa')
 	if(!is.null(data$taxa_to)) data$taxa_to <- resToURI(api, data$taxa_to, 'taxa')
 	if(!is.null(data$environment)) data$environment <- multi_resToURI(api, data$environment, 'environment')
-	# Auto-fill informations if only populations are given
-	if(!is.null(data$pop_from))
-	{
-		if(is.null(data$taxa_from)) data$taxa_from <- resToURI(api, pop_from$taxa, 'taxa')
-		data$pop_from <- resToURI(api, data$pop_from, 'population')
-	}
-	if(!is.null(data$pop_to))
-	{
-		if(is.null(data$taxa_to)) data$taxa_to <- resToURI(api, pop_to$taxa, 'taxa')
-		data$pop_to <- resToURI(api, data$pop_to, 'population')
-	}
+	if(!is.null(data$paper)) data$paper <- multi_resToURI(api, data$paper, 'reference')
+	if(!is.null(data$data)) data$data <- multi_resToURI(api, data$data, 'reference')
 	# Auto-fill informations if the items are given
 	if(!is.null(data$item_from))
 	{
-		if(is.null(data$pop_from) | is.null(data$taxa_from)) pop_from <- getPopulation(api, ifelse(is.list(data$item_from), data$item_from$id, data$item_from))
-		if(is.null(data$pop_from)) data$pop_from <- resToURI(api, pop_from$id, 'population')
-		if(is.null(data$taxa_from)) data$taxa_from <- resToURI(api, pop_from$taxa, 'taxa')
+		if(is.null(data$taxa_from)) data$taxa_from <- resToURI(api, data$taxa_from, 'taxa')
 		data$item_from <- resToURI(api, data$item_from, 'item')
 	}
 	if(!is.null(data$item_to))
 	{
-		if(is.null(data$pop_to) | is.null(data$taxa_to)) pop_to <- getPopulation(api, ifelse(is.list(data$item_to), data$item_to$id, data$item_to))
-		if(is.null(data$pop_to)) data$pop_to <- resToURI(api, pop_to$id, 'population')
-		if(is.null(data$taxa_to)) data$taxa_to <- resToURI(api, pop_to$taxa, 'taxa')
+		if(is.null(data$taxa_to)) data$taxa_to <- resToURI(api, data$taxa_to, 'taxa')
 		data$item_to <- resToURI(api, data$item_to, 'item')
 	}
 	mangalPatch(api, 'interaction', data)

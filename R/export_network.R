@@ -2,9 +2,9 @@
 #' @param rec the result from a getTrait or getEnvironment query
 formatTraitEnv <- function(rec)
 {
-	name <- str_c(strsplit(rec$name, ' ')[[1]],collapse='_')
+	name <- stringr::str_c(strsplit(rec$name, ' ')[[1]],collapse='_')
 	rec <- rec[!names(rec) %in% c('name','owner')]
-	names(rec) <- str_c(name, '__', names(rec))
+	names(rec) <- stringr::str_c(name, '__', names(rec))
 	return(rec)
 }
 
@@ -18,7 +18,7 @@ taxaToVector <- function(api, id)
 	tav <- unlist(taxa[!names(taxa)=='traits'])
 	if(length(taxa$traits) > 0)
 	{
-		traits <- llply(taxa$traits, function(x) unlist(formatTraitEnv(getTrait(api, x))))
+		traits <- plyr::llply(taxa$traits, function(x) unlist(formatTraitEnv(getTrait(api, x))))
 		tav <- c(tav, unlist(traits))
 	}
 	return(tav)
@@ -30,10 +30,18 @@ taxaToVector <- function(api, id)
 #' @param id a vector of taxa id
 makeTaxaTable <- function(api, id)
 {
-	taxa <- alply(id, 1, function(x) taxaToVector(api, x))
-	all_columns <- unique(unlist(llply(taxa, names)))
-	taxa_table <- ldply(taxa, function(x) x[all_columns])[,-1]
+	taxa <- plyr::alply(id, 1, function(x) taxaToVector(api, x))
+	all_columns <- unique(unlist(plyr::llply(taxa, names)))
+	taxa_table <- plyr::ldply(taxa, function(x) x[all_columns])[,-1]
 	colnames(taxa_table) <- all_columns
+   id_pos <- which(colnames(taxa_table)=='id')
+   if(id_pos != 1)
+   {
+      n_1 <- taxa_table[,1]
+      taxa_table[,1] <- taxa_table[,id_pos]
+      taxa_table[,id_pos] <- n_1
+      colnames(taxa_table)[c(1, id_pos)] <- colnames(taxa_table)[c(id_pos, 1)]
+   }
 	return(taxa_table)
 }
 
@@ -52,15 +60,15 @@ getElements <- function(api, id, level = 'taxa', ...)
 	Edf <- NULL
 	if(!(level %in% c('taxa', 'population', 'item'))) stop("Level must be one of taxa, population, item")
 	network <- getNetwork(api, id)
-	Edf <- adply(network$interactions, 1, function(x) unlist(getInteraction(api, x)))
+	Edf <- plyr::adply(network$interactions, 1, function(x) unlist(getInteraction(api, x)))
 	Edf <- Edf[,-1]
 	if(level == 'taxa')
 	{
 		Edf$from <- Edf$taxa_from
 		Edf$to <- Edf$taxa_to
 		all_taxa <- unique(c(Edf$to, Edf$from))
-		V_list <- alply(all_taxa, 1, function(x) getTaxa(api, x))
-		V_list <- laply(V_list, function(x) x$id)
+		V_list <- plyr::alply(all_taxa, 1, function(x) getTaxa(api, x))
+		V_list <- plyr::laply(V_list, function(x) x$id)
 		Vdf <- makeTaxaTable(api, V_list)
 	}
 	return(list(vertices = Vdf, edges = Edf, metadata = Mdf))

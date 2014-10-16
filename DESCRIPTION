@@ -1,22 +1,23 @@
 Package: rmangal
-Version: 0.3.1
-Date: 2014-04-15
-Title: R interface to the mangal database of ecological networks
-Author: Tim Poisot <t.poisot@gmail.com>
-Maintainer: Tim Poisot <t.poisot@gmail.com>
+Version: 1.0.0
+Date: 2015-01-15
+Title: R interface to the mangal API for open ecological networks data
+Author: Timothée Poisot <t.poisot@gmail.com>
+Maintainer: Timothée Poisot <t.poisot@gmail.com>
 Depends:
-    R (>= 3.1.0),
+    R (>= 3.0.0),
+    igraph,
+    cheddar
+Imports:
     jsonlite,
     httr,
     plyr,
-    igraph,
-    stringr,
-    cheddar
+    stringr
 Suggests:
     knitr
 Description: This packages offers R functions to interact with the mangal API,
     to retrieve and format data on species interaction networks.
-#VignetteBuilder: knitr
-License: BSD_2_clause
+VignetteBuilder: knitr
+License: MIT
 URL: https://github.com/tpoisot/rmangal
-BugReports: https: //github.com/tpoisot/rmangal/issues
+BugReports: https://github.com/tpoisot/rmangal/issues

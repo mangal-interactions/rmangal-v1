@@ -4,7 +4,8 @@
 #' @description Returns a list of references
 #'
 #' @param api a \code{\link{mangalapi}} object
-listReference <- function(api) mangalList(api, 'reference')
+#' @param ... additional parameters (filters) to be passed to \code{\link{mangalList}}
+listReference <- function(api, ...) mangalList(api, 'reference', ...)
 
 #' @title Get a reference
 #' @export

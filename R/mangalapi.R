@@ -8,46 +8,59 @@
 #' This function establishes a connection to the mangal API located at the given url.
 #' If the author has an username / API key pair, it can be stated here. Note that if this
 #' information is in the `mangal_usr` and `mangal_key` options, it will be filled
-#' \textbf{unless} a usr and key are supplied.
+#' unless a usr and key are supplied.
 #'
 #' @param url The URL to the server
 #' @param v The API version
 #' @param usr The username
-#' @param pwd The API key
+#' @param key The API key
 mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key = NULL)
 {
-   if(str_sub(url, start=-1) == '/') url <- str_sub(url, end=-2)
-	queryset <- GET(paste(url, 'api', v, sep='/'))
-	if(http_status(queryset)$category == "success")
+   if(stringr::str_sub(url, start=-1) == '/') url <- stringr::str_sub(url, end=-2)
+	queryset <- httr::GET(stringr::str_c(url, 'api', v, sep='/'))
+	if(httr::http_status(queryset)$category == "success")
 	{
 		methods <- list()
+      methods$args <- list(client = 'rmangal') # Additional URL parameters
+      methods$auth <- FALSE
 		if(is.null(usr)) usr <- options()$mangal_usr
 		if(is.null(key)) key <- options()$mangal_key
       if(!(is.null(usr))&is.null(key)) warning("No password has been provided")
       if(!(is.null(key))&is.null(usr)) warning("No API key has been provided")
       if(!(is.null(usr) & is.null(key)))
       {
-      	methods$auth <- str_c('username=',usr,'&api_key=',key)
+         methods$args$username <- usr
+         methods$args$api_key <- key
+      	methods$auth <- TRUE
       	methods$usr <- usr
       }
 		methods$base <- url
-		methods$trail <- paste('/api', v, sep='/')
-		list_of_methods <- content(queryset)
+		methods$trail <- stringr::str_c('/api', v, sep='/')
+		list_of_methods <- httr::content(queryset)
 		methods$resources <- names(list_of_methods)
 		for(res in methods$resources)
 		{
-			methods[[res]]$url <- paste(url,list_of_methods[[res]]$list_endpoint, sep='')
-      methods[[res]]$verbs <- content(GET(paste(url, list_of_methods[[res]]$schema, sep='')))$allowed_list_http_methods
+			methods[[res]]$url <- stringr::str_c(url,list_of_methods[[res]]$list_endpoint)
+         methods[[res]]$verbs <- httr::content(httr::GET(stringr::str_c(url, list_of_methods[[res]]$schema)))$allowed_list_http_methods
 		}
-		if(!(is.null(methods$auth)))
+		if(methods$auth)
 		{
-			us <- content(GET(str_c(methods$user$url,'?username__exact=',methods$usr,'&',methods$auth)))$objects[[1]]
+			us <- httr::content(httr::GET(stringr::str_c(methods$user$url, render_parameters(methods, suppl=list('username__exact' = methods$usr)))))$objects[[1]]
 			methods$me <- resToURI(methods, us, 'user')
 		}
 		return(methods)
 	} else {
-		stop(http_status(queryset)$message)
+		stop(httr::http_status(queryset)$message)
 	}
+}
+
+#' @title Render url additional key/value pairs
+#' @param api a \code{\link{mangalapi}} object
+#' @param suppl the additional parameters as a list (with names)
+render_parameters <- function(api, suppl=NULL)
+{
+   full_args <- c(api$args, suppl)
+   return(stringr::str_c('?',stringr::str_c(names(full_args), unlist(full_args), sep='=', collapse='&')))
 }
 
 #' @title Convert resource or ID to URI
@@ -61,9 +74,9 @@ resToURI <- function(api, obj, type)
 {
 	if(is.list(obj))
 	{
-		return(str_c(api$trail, '/', type, '/', obj$id, '/'))
+    return(stringr::str_c(api$trail, '/', type, '/', obj$id, '/'))
 	} else {
-		return(str_c(api$trail, '/', type, '/', obj, '/'))
+    return(stringr::str_c(api$trail, '/', type, '/', obj, '/'))
 	}
 }
 
@@ -78,14 +91,14 @@ multi_resToURI <- function(api, obj, type)
 {
 	if(is.vector(obj))
 	{
-		obj <- aaply(obj, 1, function(x) resToURI(api, x, type))
+		obj <- plyr::aaply(obj, 1, function(x) resToURI(api, x, type))
 		names(obj) <- NULL
 		if(length(obj) == 1) obj <- list(obj)
 		return(obj)
 	}
 	if(is.list(obj))
 	{
-		obj <- laply(obj, function(x) resToURI(api, x, type))
+		obj <- plyr::laply(obj, function(x) resToURI(api, x, type))
 		return(obj)
 	}
 	stop("The resource you try to convert must be a vector or list")
@@ -112,11 +125,11 @@ whoAmI <- function(api)
 #' @param ... researved for future use (export as JSON schemes)
 whatIs <- function(api, type, ...)
 {
-	if(!(type %in% api$resources)) stop(str_c("This API do not implement objects of type ",type,'. See ', deparse(substitute(api)),'$resources for more.'))
-	schema <- paste(api[[type]]$url,'schema',sep='')
-	type_spec <- content(httr::GET(schema))
+	if(!(type %in% api$resources)) stop(stringr::str_c("This API do not implement objects of type ",type,'. See ', deparse(substitute(api)),'$resources for more.'))
+	schema <- stringr::str_c(api[[type]]$url,'schema')
+	type_spec <- httr::content(httr::GET(schema))
 	# Print a data.frame with the fields
-	spec <- ldply(type_spec$fields, summarize, help = help_text, type = type, null = as.character(nullable), unique = unique, values = ifelse(exists('choices'), paste(choices, collapse=', ') , ''))
+	spec <- plyr::ldply(type_spec$fields, plyr::summarize, help = help_text, type = type, null = as.character(nullable), unique = unique, values = ifelse(exists('choices'), stringr::str_c(unlist(choices), collapse=', ') , ''))
 	colnames(spec)[1] = 'field'
 	# Remove owner, public and id
 	spec = subset(spec, !(field %in% c('owner', 'id', 'public')))

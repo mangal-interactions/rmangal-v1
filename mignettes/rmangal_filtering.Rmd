@@ -1,0 +1,61 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Filtering in rmangal}
+-->
+
+```{r load,warning=FALSE, eval=TRUE, echo=FALSE, message=FALSE}
+library(rmangal)
+```
+# Filtering
+
+The `rmangal` package allows to *filter* ressources according to a series of
+pre-defined relationships. Filtering is done in the same functions used to get
+a list of objects, simply by passing an array of filters as the last argument.
+The filters are lists, that have three attributes: `field`, `relation`, and
+`target`. The basis of filtering is: the `field` of a given type of resource
+will be matched for `target`, by a `relation`.
+
+The `relation` can be any of `contains` (target matches anywhere in the field),
+`startswith` or `endswith` (matches at the beginning or end of field), `exact`
+(the field value is *exactly* target), `in` (target is one of the values of
+the field), `range` (target is between the two bounds), and `gte`, `lte`,
+`lt`, and `gt` (for greater/less or equal than).
+
+By defaults, all fields are searchable (with the exception of `id` and
+`owner`).
+
+# Examples
+
+```{r connec}
+api <- mangalapi()
+```
+
+## Looking for all species of a given genus
+
+To look for all species of  the genus `Heteractis`, we write the following
+filter:
+
+```{r spFilter}
+heteractis <- list(field='name', relation='startswith', target='Heteractis')
+heteractis_filter <- makefilter(api, 'taxa', heteractis)
+Heteractis_species <- listTaxa(api, 'taxa', heteractis_filter)
+laply(Heteractis_species, function(x) x$name)
+```
+
+The `makefilter` function will run several checks to ensure that the filter
+is usable, and return a list with the informations needed for filtering.
+
+## Looking for networks within a geographical boundary
+
+We want to find networks within a square defined by its latitude/longitude
+coordinates. We will define two boundaries: one for the latitudes, and one
+for the longitudes. This can be done using `range`, and two filters:
+
+```{r filtLatLon}
+f_lat <- makefilter(api, 'network', list(field='latitude', relation='range', target=c(1.756, 1.813)))
+f_lon <- makefilter(api, 'network', list(field='longitude', relation='range', target=c(124.760, 124.808)))
+Networks <- listNetwork(api, c(f_lat, f_lon))
+laply(Networks, function(x) x$name)
+```
+
+Note that in that situation, the several filters are combined with `c`.

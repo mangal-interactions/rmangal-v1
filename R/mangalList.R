@@ -4,10 +4,10 @@
 #'
 #' @param api a \code{\link{mangalapi}} object
 #' @param type a type of object
+#' @param filtering a vector of filters to restrict the returned objects
 mangalList <- function(api, type, filtering=NULL)
 {
-	if(is.null(api[[type]]) | !("get" %in% api[[type]]$verbs)) stop(paste("This API do not implement the listing of ",type,sep=''))
-	query_url <- str_c(api[[type]]$url, '?', api$auth)
-   query_url <- ifelse(is.null(filtering), query_url, str_c(query_url,'&',filtering))
-	return(pagerResources(api, GET(query_url)))
+	if(is.null(api[[type]]) | !("get" %in% api[[type]]$verbs)) stop(stringr::str_c("This API do not implement the listing of ",type))
+	query_url <- stringr::str_c(api[[type]]$url, render_parameters(api, filtering))
+	return(pagerResources(api, httr::GET(query_url)))
 }

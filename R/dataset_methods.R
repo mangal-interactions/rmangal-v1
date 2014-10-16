@@ -4,7 +4,8 @@
 #' @description Returns a list of datasets
 #'
 #' @param api a \code{\link{mangalapi}} object
-listDataset <- function(api) mangalList(api, 'dataset')
+#' @param ... additional parameters (filters) to be passed to \code{\link{mangalList}}
+listDataset <- function(api, ...) mangalList(api, 'dataset', ...)
 
 #' @title Get a particular dataset
 #' @export
