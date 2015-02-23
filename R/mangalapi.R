@@ -1,10 +1,10 @@
 #' @title Initialise a mangal API object
 #' @export
-#' 
+#'
 #' @description Initialise a mangal API obect, with direct reference to the resources
-#' 
+#'
 #' @details
-#' 
+#'
 #' This function establishes a connection to the mangal API located at the given url.
 #' If the author has an username / API key pair, it can be stated here. Note that if this
 #' information is in the `mangal_usr` and `mangal_key` options, it will be filled
@@ -14,44 +14,44 @@
 #' @param v The API version
 #' @param usr The username
 #' @param key The API key
-mangalapi <- function(url = "http://mangal.uqar.ca", v = 'v1', usr = NULL, key = NULL)
+mangalapi <- function(url = "http://mangal.io", v = 'v1', usr = NULL, key = NULL)
 {
-   if(stringr::str_sub(url, start=-1) == '/') url <- stringr::str_sub(url, end=-2)
-	queryset <- httr::GET(stringr::str_c(url, 'api', v, sep='/'))
-	if(httr::http_status(queryset)$category == "success")
-	{
-		methods <- list()
-      methods$args <- list(client = 'rmangal') # Additional URL parameters
-      methods$auth <- FALSE
-		if(is.null(usr)) usr <- options()$mangal_usr
-		if(is.null(key)) key <- options()$mangal_key
-      if(!(is.null(usr))&is.null(key)) warning("No password has been provided")
-      if(!(is.null(key))&is.null(usr)) warning("No API key has been provided")
-      if(!(is.null(usr) & is.null(key)))
-      {
-         methods$args$username <- usr
-         methods$args$api_key <- key
-      	methods$auth <- TRUE
-      	methods$usr <- usr
-      }
-		methods$base <- url
-		methods$trail <- stringr::str_c('/api', v, sep='/')
-		list_of_methods <- httr::content(queryset)
-		methods$resources <- names(list_of_methods)
-		for(res in methods$resources)
-		{
-			methods[[res]]$url <- stringr::str_c(url,list_of_methods[[res]]$list_endpoint)
-         methods[[res]]$verbs <- httr::content(httr::GET(stringr::str_c(url, list_of_methods[[res]]$schema)))$allowed_list_http_methods
-		}
-		if(methods$auth)
-		{
-			us <- httr::content(httr::GET(stringr::str_c(methods$user$url, render_parameters(methods, suppl=list('username__exact' = methods$usr)))))$objects[[1]]
-			methods$me <- resToURI(methods, us, 'user')
-		}
-		return(methods)
-	} else {
-		stop(httr::http_status(queryset)$message)
-	}
+  if(stringr::str_sub(url, start=-1) == '/') url <- stringr::str_sub(url, end=-2)
+  queryset <- httr::GET(stringr::str_c(url, 'api', v, sep='/'))
+  if(httr::http_status(queryset)$category == "success")
+  {
+    methods <- list()
+    methods$args <- list(client = 'rmangal') # Additional URL parameters
+    methods$auth <- FALSE
+    if(is.null(usr)) usr <- options()$mangal_usr
+    if(is.null(key)) key <- options()$mangal_key
+    if(!(is.null(usr))&is.null(key)) warning("No password has been provided")
+    if(!(is.null(key))&is.null(usr)) warning("No API key has been provided")
+    if(!(is.null(usr) & is.null(key)))
+    {
+      methods$args$username <- usr
+      methods$args$api_key <- key
+      methods$auth <- TRUE
+      methods$usr <- usr
+    }
+    methods$base <- url
+    methods$trail <- stringr::str_c('/api', v, sep='/')
+    list_of_methods <- httr::content(queryset)
+    methods$resources <- names(list_of_methods)
+    for(res in methods$resources)
+    {
+      methods[[res]]$url <- stringr::str_c(url,list_of_methods[[res]]$list_endpoint)
+      methods[[res]]$verbs <- httr::content(httr::GET(stringr::str_c(url, list_of_methods[[res]]$schema)))$allowed_list_http_methods
+    }
+    if(methods$auth)
+    {
+      us <- httr::content(httr::GET(stringr::str_c(methods$user$url, render_parameters(methods, suppl=list('username__exact' = methods$usr)))))$objects[[1]]
+      methods$me <- resToURI(methods, us, 'user')
+    }
+      return(methods)
+    } else {
+      stop(httr::http_status(queryset)$message)
+  }
 }
 
 #' @title Render url additional key/value pairs
@@ -64,9 +64,9 @@ render_parameters <- function(api, suppl=NULL)
 }
 
 #' @title Convert resource or ID to URI
-#' 
+#'
 #' @description Returns the URI of a resource, for internal use only
-#' 
+#'
 #' @param api a \code{\link{mangalapi}} object
 #' @param obj the object to convert
 #' @param type the type of object to convert
@@ -81,9 +81,9 @@ resToURI <- function(api, obj, type)
 }
 
 #' @title Convert several resources or IDs to URI
-#' 
+#'
 #' @description For internal use only
-#' 
+#'
 #' @param api a \code{\link{mangalapi}} object
 #' @param obj the object to convert
 #' @param type the type of object to convert
@@ -105,9 +105,9 @@ multi_resToURI <- function(api, obj, type)
 }
 
 #' @title Get self user info
-#' 
+#'
 #' @description Get self user info needed for paternity of data
-#' 
+#'
 #' @param api a \code{\link{mangalapi}} object
 whoAmI <- function(api)
 {
@@ -117,7 +117,7 @@ whoAmI <- function(api)
 
 #' @title How should objects be formatted
 #' @export
-#' 
+#'
 #' @description Prints a data.frame with informations about object format and help text
 #'
 #' @param api a \code{\link{mangalapi}} object
