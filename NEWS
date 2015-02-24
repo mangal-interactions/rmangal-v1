@@ -1,3 +1,7 @@
+rmangal 1.0.0
+=============
+* here you go!
+
 rmangal 0.4.1
 =============
 * patching a resource does *not* overwrite the owner name anymore
