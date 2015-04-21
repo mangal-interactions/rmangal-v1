@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/mangal-wg/rmangal.png?branch=master)](https://travis-ci.org/mangal-wg/rmangal)
 
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.16998.svg)](http://dx.doi.org/10.5281/zenodo.16998)
+
 `rmangal` is a `R` package to interact with APIs implementing the `mangal`
 data specification for the representation of ecological networks. As of yet,
 the only such database is hosted by the Université du Québec à Rimouski,
