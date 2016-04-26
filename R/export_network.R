@@ -9,7 +9,7 @@ formatTraitEnv <- function(rec)
 }
 
 #' @title Transforms a taxa to a vector
-#' 
+#'
 #' @param api a \code{\link{mangalapi}} object
 #' @param id a taxa id
 taxaToVector <- function(api, id)
@@ -25,7 +25,7 @@ taxaToVector <- function(api, id)
 }
 
 #' @title Make a table with taxa level infos
-#' 
+#'
 #' @param api a \code{\link{mangalapi}} object
 #' @param id a vector of taxa id
 makeTaxaTable <- function(api, id)
@@ -46,9 +46,9 @@ makeTaxaTable <- function(api, id)
 }
 
 #' @title Get aggregated informations on a network
-#' 
+#'
 #' @description Internal use
-#' 
+#'
 #' @param api a \code{\link{mangalapi}} object
 #' @param id the id of the network
 #' @param level the level at which to aggregate data
@@ -76,13 +76,14 @@ getElements <- function(api, id, level = 'taxa', ...)
 
 #' @title Export a network to igraph
 #' @export
-#' 
+#'
 #' @description ...
-#' 
+#'
 #' @param api a \code{\link{mangalapi}} object
 #' @param id the id of the network
 #' @param level the level of aggregation
 #' @param ... reserved for future options
+# TODO PERFORMANCE ISSUE - get taxa information AT THE END!
 toIgraph <- function(api, id, level = 'taxa', ...)
 {
 	elements <- getElements(api, id, level, ...)
@@ -95,9 +96,9 @@ toIgraph <- function(api, id, level = 'taxa', ...)
 
 #' @title Export a network to cheddar
 #' @export
-#' 
+#'
 #' @description ...
-#' 
+#'
 #' @param api a \code{\link{mangalapi}} object
 #' @param id the id of the network
 #' @param level the level of aggregation

@@ -7,7 +7,7 @@
 pagerResources <- function(api, queryset)
 {
 	resources <- NULL
-	if(httr::http_status(queryset)$category == "success")
+	if(tolower(httr::http_status(queryset)$category) == "success")
 	{
 		fields <- httr::content(queryset)
 		cat(stringr::str_c(fields$meta$total_count,' object(s) found\n'))

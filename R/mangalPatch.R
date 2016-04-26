@@ -17,7 +17,7 @@ mangalPatch <- function(api, type, data)
    # We need to get rid of everything NULL, or else jsonlite will screw it up
    data[names(data)[plyr::laply(data, length)==0]] <- NULL
 	queryset <- httr::PATCH(stringr::str_c(qURL, '?', api$auth), body = jsonlite::toJSON(data, auto_unbox=TRUE), httr::add_headers("Content-type" = "application/json"))
-	if(httr::http_status(queryset)$category == "success")
+	if(tolower(httr::http_status(queryset)$category) == "success")
 	{
 		new_entry <- httr::content(queryset)
 		return(new_entry)

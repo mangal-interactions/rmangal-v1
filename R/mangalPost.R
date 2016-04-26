@@ -12,7 +12,7 @@ mangalPost <- function(api, type, data)
   if(is.null(api[[type]]) | !("post" %in% api[[type]]$verbs)) stop(stringr::str_c("This API do not permit POSTing objects of type ",type))
   if(!type == 'user') data$owner <- api$me
   queryset <- httr::POST(stringr::str_c(api[[type]]$url, render_parameters(api)), body = jsonlite::toJSON(data, auto_unbox=TRUE), httr::add_headers("Content-type" = "application/json"))
-  if(httr::http_status(queryset)$category == "success")
+  if(tolower(httr::http_status(queryset)$category) == "success")
   {
     new_entry <- httr::content(queryset)
     return(new_entry)
