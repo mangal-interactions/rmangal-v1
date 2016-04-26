@@ -18,7 +18,7 @@ mangalapi <- function(url = "http://mangal.io", v = 'v1', usr = NULL, key = NULL
 {
   if(stringr::str_sub(url, start=-1) == '/') url <- stringr::str_sub(url, end=-2)
   queryset <- httr::GET(stringr::str_c(url, 'api', v, sep='/'))
-  if(httr::http_status(queryset)$category == "success")
+  if(tolower(httr::http_status(queryset)$category) == "success")
   {
     methods <- list()
     methods$args <- list(client = 'rmangal') # Additional URL parameters
